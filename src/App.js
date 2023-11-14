@@ -1,5 +1,5 @@
-import React from 'react';
-import { UseGetProjectList } from './apis/projectListApi';
+import React, { useEffect } from 'react';
+import { usePostEmailLogin } from './apis/userApi.js';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import DemandRegister from './pages/DemandRegister';
@@ -9,26 +9,6 @@ import Goods from './pages/Goods';
 import MyPage from './pages/MyPage';
 
 const App = () => {
-  // const { getProjectList, isLoading, error } = UseGetProjectList(
-  //   'demand',
-  //   '',
-  //   1,
-  //   '',
-  //   ''
-  // );
-
-  // console.log(getProjectList);
-
-  // // Check loading state
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
-
-  // // Check for errors
-  // if (error) {
-  //   return <div>Error: {error.message}</div>;
-  // }
-
   return (
     <div className="App">
       {/* <Header /> */}
