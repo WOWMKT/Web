@@ -1,6 +1,7 @@
 import React from 'react';
 
 const theme = {
+
   colors: {
     /* 1이 제일 진한 색. b-파란색, x-초록색, g-회색*/
     b1: '#002472',
@@ -54,6 +55,31 @@ const theme = {
     font-style: normal;
     font-weight: 300;`,
   },
+  media: {
+    // 작은 스마트폰
+    smallMobile: `
+      @media screen and (max-width: 320px) {
+        font-size: 12px;
+      }
+    `,
+    // 일반 스마트폰
+    mobile: `
+      @media screen and (min-width: 321px) and (max-width: 480px) {
+        font-size: 14px;
+      }
+    `,
+    // 큰 스마트폰
+    largeMobile: `
+      @media screen and (min-width: 481px) and (max-width: 768px) {
+        font-size: 16px;
+      }
+    `,
+    // 접이식 스마트폰 (예: Z플립, 갤럭시 폴드)
+    foldableMobile: `
+      @media screen and (min-width: 769px) and (max-width: 1024px) {
+        font-size: 18px;
+      }
+    `
+  }
 };
-
 export default theme;

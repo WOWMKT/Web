@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
+import {useMediaQuery} from "react-responsive";
 
 const GlobalStyle = createGlobalStyle`
     ${reset}

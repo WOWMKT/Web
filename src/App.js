@@ -7,6 +7,7 @@ import ProjectRegister from './pages/ProjectRegister.js';
 import Users from './pages/Users';
 import Goods from './pages/Goods';
 import MyPage from './pages/MyPage';
+import ThemeProviderPrac from './style/ThemeProviderPrac.js';
 
 const App = () => {
   // const { getProjectList, isLoading, error } = UseGetProjectList(
@@ -32,6 +33,9 @@ const App = () => {
   return (
     <div className="App">
       {/* <Header /> */}
+      <ThemeProviderPrac>
+        텍스트
+      </ThemeProviderPrac>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/users/:page_type" element={<Users />} />
