@@ -2,7 +2,7 @@ import React from "react";
 import styled from 'styled-components';
 import theme from "./theme";
 
-export const ThemeProviderPrac = styled.div`
+export const ThemeProvider = styled.div`
   font-size: 20px; // 기본 글자 크기
   ${theme.media.smallMobile} {
     font-size: 12px;
@@ -17,4 +17,4 @@ export const ThemeProviderPrac = styled.div`
     font-size: 18px;
   }
 `;
-export default ThemeProviderPrac;
+export default ThemeProvider;

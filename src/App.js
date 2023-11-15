@@ -7,7 +7,7 @@ import ProjectRegister from './pages/ProjectRegister.js';
 import Users from './pages/Users';
 import Goods from './pages/Goods';
 import MyPage from './pages/MyPage';
-import ThemeProviderPrac from './style/ThemeProviderPrac.js';
+import ThemeProvider from './style/ThemeProvider.js';
 
 const App = () => {
   // const { getProjectList, isLoading, error } = UseGetProjectList(
@@ -34,7 +34,7 @@ const App = () => {
     <div className="App">
       {/* <Header /> */}
       <ThemeProviderPrac>
-        텍스트
+        미디어 쿼리 텍스트
       </ThemeProviderPrac>
       <Routes>
         <Route path="/" element={<Home />} />
