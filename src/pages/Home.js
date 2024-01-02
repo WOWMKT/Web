@@ -1,15 +1,10 @@
 import React, { useEffect } from 'react';
-import { usePostEmailLogin } from '../apis/userApi.js';
+import HamburgerIcon from '../assets/icon/HamburgerIcon';
 
 const Home = () => {
-  //api test
-  const userData = usePostEmailLogin({
-    id: 'ekdldkaa@naver.com',
-    pw: 'ekdldkaa',
-  });
-
   return (
     <div>
+      <HamburgerIcon />
       <h1>this is Home</h1>
     </div>
   );
