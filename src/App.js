@@ -6,11 +6,12 @@ import ProjectRegister from './pages/ProjectRegister.js';
 import Users from './pages/Users';
 import Goods from './pages/Goods';
 import MyPage from './pages/MyPage';
+import Header from './components/common/Header.js';
 
 const App = () => {
   return (
     <div className="App">
-      {/* <Header /> */}
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/users/:page_type" element={<Users />} />
