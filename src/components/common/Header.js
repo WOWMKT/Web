@@ -30,23 +30,23 @@ const HeaderWrapper = styled.header`
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: white; /* Adjust as per your design */
-  z-index: 1000; /* Ensure it's above other content */
+  background-color: white;
+  z-index: 1000;
 `;
 
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 20rem;
-  padding-left: 7rem;
-  padding-right: 7rem;
+  height: 10rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
   border-bottom: 1px solid ${(props) => props.theme.colors.gray2};
 `;
 
 const IconBox = styled.div`
   display: flex;
-  gap: 3rem;
+  gap: 1rem;
 `;
 
 const CenteredLogo = styled.div`
