@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const StepStateBar = ({ step }) => {
   const stepTitleList = [
@@ -21,7 +21,9 @@ const StepStateBar = ({ step }) => {
         {stepTitleList.map((title, index) => (
           <StepLineWrapper key={index}>
             <StepLine />
-            <StepCircle active={index + 1 === step} />
+            <StepCircle active={index + 1 === step}>
+              {index + 1 === step && <InnerCircle />}
+            </StepCircle>
           </StepLineWrapper>
         ))}
       </StepBody>
@@ -81,6 +83,12 @@ const StepLine = styled.div`
   height: 0.15rem;
   background: #003cbc;
 `;
+const activeCircleStyles = css`
+  top: -0.6rem;
+  left: 35%;
+  width: 1.5rem;
+  height: 1.5rem;
+`;
 
 const StepCircle = styled.div`
   position: absolute;
@@ -91,7 +99,21 @@ const StepCircle = styled.div`
   border-radius: 50%;
   background-color: var(--main, #002472);
   z-index: 1;
+
+  ${(props) => props.active && activeCircleStyles}
 `;
+
+const InnerCircle = styled.div`
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  background-color: #fff; /* 원하는 색상으로 변경 */
+  z-index: 2;
+`;
+
 const StepFooter = styled.div`
   width: 100%;
   display: flex;

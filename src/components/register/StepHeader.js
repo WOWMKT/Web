@@ -27,8 +27,13 @@ export default StepHeader;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-left: 3rem;
-  padding-right: 3rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+
+  margin-left: 3rem;
+  margin-right: 3rem;
+  gap: 3rem;
+  border-bottom: 1px solid #c1c1c1;
 `;
 
 const Title = styled.div`
@@ -46,7 +51,7 @@ const Title = styled.div`
 
 const StepTitle = styled.div`
   color: var(--main, #002472);
-  font-size: 20px;
+  font-size: 2rem;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -55,7 +60,7 @@ const StepTitle = styled.div`
 
 const StepSubtitle = styled.div`
   color: var(--black, #000);
-  font-size: 20px;
+  font-size: 2rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
