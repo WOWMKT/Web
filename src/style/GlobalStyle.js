@@ -19,15 +19,16 @@ ${reset}
         padding: 0;
         border: 0;
         vertical-align: baseline;
+
     }
     html,
     body,
     #root {
-        width: 100%;
-        height: 100%;
+        width: 100vw;
+        height: 100vh;
         font-family: 'Pretendard', sans-serif; /* Pretendard 폰트를 사용할 요소 선택 */
         font-size: 62.5%;  // 1rem을 10px로 설정        
-        background-color: #F4F7FF;
+        background-color: white;
     }
     * {
     font-weight: 400;
@@ -45,6 +46,7 @@ ${reset}
 
 body {
   font-family: 'Pretendard', sans-serif; 
+  width: 100vw;
 }
 `;
 

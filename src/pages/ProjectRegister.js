@@ -6,6 +6,7 @@ import InputExtraQuestionInfo from '../components/register/InputExtraQuestionInf
 import InputGetWayInfo from '../components/register/InputGetWayInfo';
 import InputGoodsInfo from '../components/register/InputGoodsInfo';
 import InputSellerInfo from '../components/register/InputSellerInfo';
+import CommonCheckBox from '../components/common/CommonCheckBox';
 
 const ProjectRegister = () => {
   const [step, setStep] = useState(1);
@@ -35,6 +36,7 @@ const ProjectRegister = () => {
 export default ProjectRegister;
 
 const Wrapper = styled.div`
+  width: 100vw;
   height: 100vh;
   padding-top: 10rem;
 
@@ -43,6 +45,6 @@ const Wrapper = styled.div`
 `;
 const StepBodyWrapper = styled.div`
   height: 100%;
-  width: 85%;
   margin-left: 3rem;
+  margin-right: 3rem;
 `;
