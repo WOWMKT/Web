@@ -9,7 +9,7 @@ import InputSellerInfo from '../components/register/InputSellerInfo';
 import CommonCheckBox from '../components/common/CommonCheckBox';
 
 const ProjectRegister = () => {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(3);
 
   // 단계별 컴포넌트 배열
   const InputInfoList = [
@@ -27,7 +27,7 @@ const ProjectRegister = () => {
 
   return (
     <Wrapper>
-      <StepHeader step={2} />
+      <StepHeader step={3} />
       <StepBodyWrapper>{renderStepBodyComponent()}</StepBodyWrapper>
     </Wrapper>
   );
