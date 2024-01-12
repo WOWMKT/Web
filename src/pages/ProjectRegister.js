@@ -9,7 +9,7 @@ import InputSellerInfo from '../components/register/InputSellerInfo';
 import CommonCheckBox from '../components/common/CommonCheckBox';
 
 const ProjectRegister = () => {
-  const [step, setStep] = useState(4); //1~5
+  const [step, setStep] = useState(5); //1~5
 
   // 단계별 컴포넌트 배열
   const InputInfoList = [
