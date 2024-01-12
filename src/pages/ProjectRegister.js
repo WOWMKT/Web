@@ -9,7 +9,20 @@ import InputSellerInfo from '../components/register/InputSellerInfo';
 import CommonCheckBox from '../components/common/CommonCheckBox';
 
 const ProjectRegister = () => {
-  const [step, setStep] = useState(5); //1~5
+  const [step, setStep] = useState(1); //1~5
+  const handleMoveNext = () => {
+    if (step < 5) {
+      setStep(step + 1);
+    } else {
+      alert('마지막 페이지!');
+    }
+  };
+
+  const handleMoveBefore = () => {
+    if (step > 1) {
+      setStep(step - 1);
+    }
+  };
 
   // 단계별 컴포넌트 배열
   const InputInfoList = [
@@ -22,12 +35,17 @@ const ProjectRegister = () => {
   // step 값에 따른 컴포넌트 렌더링 함수
   const renderStepBodyComponent = () => {
     const StepBody = InputInfoList[step - 1];
-    return StepBody ? <StepBody /> : null;
+    return StepBody ? (
+      <StepBody
+        handleMoveNext={handleMoveNext}
+        handleMoveBefore={handleMoveBefore}
+      />
+    ) : null;
   };
 
   return (
     <Wrapper>
-      <StepHeader step={3} />
+      <StepHeader step={step} />
       <StepBodyWrapper>{renderStepBodyComponent()}</StepBodyWrapper>
     </Wrapper>
   );

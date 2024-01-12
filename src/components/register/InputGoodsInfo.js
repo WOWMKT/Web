@@ -7,7 +7,7 @@ import CommonCalender from '../common/CommonCalendar';
 import CommonCheckBox from '../common/CommonCheckBox';
 import CommonTextarea from '../common/CommonTextarea';
 
-const InputGoodsInfo = () => {
+const InputGoodsInfo = ({ handleMoveNext, handleMoveBefore }) => {
   const categoryOptions = [
     { value: '우리은행', label: '우리은행' },
     { value: '신한은행', label: '신한은행' },
@@ -72,8 +72,18 @@ const InputGoodsInfo = () => {
         </FormTitleBox>
       </GoodsInfoWrapper>
       <ButtonBox>
-        <CommonButton size={'s'} type={'lineBlue'} children={'이전 단계'} />
-        <CommonButton size={'s'} type={'fillBlue'} children={'다음 단계'} />
+        <CommonButton
+          size={'s'}
+          type={'lineBlue'}
+          children={'이전 단계'}
+          onClick={handleMoveBefore}
+        />
+        <CommonButton
+          size={'s'}
+          type={'fillBlue'}
+          children={'다음 단계'}
+          onClick={handleMoveNext}
+        />
       </ButtonBox>
     </Wrapper>
   );

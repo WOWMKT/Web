@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import CommonButton from '../common/CommonButton';
 import CommonInput from '../common/CommonInput';
 
-const InputGetWayInfo = () => {
+const InputGetWayInfo = ({ handleMoveNext, handleMoveBefore }) => {
   return (
     <Wrapper>
       <GetWayWrapper>
@@ -21,8 +21,18 @@ const InputGetWayInfo = () => {
         <CommonButton size={'l'} type={'fillGray'} children={'+'} />
       </GetWayWrapper>
       <ButtonBox>
-        <CommonButton size={'s'} type={'lineBlue'} children={'이전 단계'} />
-        <CommonButton size={'s'} type={'fillBlue'} children={'다음 단계'} />
+        <CommonButton
+          size={'s'}
+          type={'lineBlue'}
+          children={'이전 단계'}
+          onClick={handleMoveBefore}
+        />
+        <CommonButton
+          size={'s'}
+          type={'fillBlue'}
+          children={'다음 단계'}
+          onClick={handleMoveNext}
+        />{' '}
       </ButtonBox>
     </Wrapper>
   );

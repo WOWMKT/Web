@@ -4,7 +4,7 @@ import CommonCheckBox from '../common/CommonCheckBox';
 import CommonButton from '../common/CommonButton';
 import CommonInput from '../common/CommonInput';
 
-const InputAgreementInfo = () => {
+const InputAgreementInfo = ({ handleMoveNext, handleMoveBefore }) => {
   return (
     <Wrapper>
       <FormTitleBox>
@@ -50,8 +50,18 @@ const InputAgreementInfo = () => {
         </AgreementBox>
       </FormTitleBox>
       <ButtonBox>
-        <CommonButton size={'s'} type={'lineBlue'} children={'이전 단계'} />
-        <CommonButton size={'s'} type={'fillBlue'} children={'다음 단계'} />
+        <CommonButton
+          size={'s'}
+          type={'lineBlue'}
+          children={'이전 단계'}
+          onClick={handleMoveBefore}
+        />
+        <CommonButton
+          size={'s'}
+          type={'fillBlue'}
+          children={'다음 단계'}
+          onClick={handleMoveNext}
+        />
       </ButtonBox>
     </Wrapper>
   );

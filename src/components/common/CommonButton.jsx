@@ -1,9 +1,14 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-const CommonButton = ({ size, type, children, ...props }) => {
+const CommonButton = ({ size, type, children, onClick, ...props }) => {
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    }
+  };
   return (
-    <StyledButton size={size} type={type} {...props}>
+    <StyledButton size={size} type={type} onClick={handleClick} {...props}>
       {children}
     </StyledButton>
   );

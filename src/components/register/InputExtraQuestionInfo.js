@@ -4,7 +4,7 @@ import CommonCheckBox from '../common/CommonCheckBox';
 import CommonButton from '../common/CommonButton';
 import CommonInput from '../common/CommonInput';
 
-const InputExtraQuestionInfo = () => {
+const InputExtraQuestionInfo = ({ handleMoveNext, handleMoveBefore }) => {
   return (
     <Wrapper>
       <FormTitleBox>
@@ -23,8 +23,18 @@ const InputExtraQuestionInfo = () => {
         <CommonButton size={'l'} type={'fillGray'} children={'+'} />
       </FormTitleBox>
       <ButtonBox>
-        <CommonButton size={'s'} type={'lineBlue'} children={'이전 단계'} />
-        <CommonButton size={'s'} type={'fillBlue'} children={'다음 단계'} />
+        <CommonButton
+          size={'s'}
+          type={'lineBlue'}
+          children={'이전 단계'}
+          onClick={handleMoveBefore}
+        />
+        <CommonButton
+          size={'s'}
+          type={'fillBlue'}
+          children={'다음 단계'}
+          onClick={handleMoveNext}
+        />
       </ButtonBox>
     </Wrapper>
   );
