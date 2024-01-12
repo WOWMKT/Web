@@ -27,7 +27,7 @@ const ProjectRegister = () => {
 
   return (
     <Wrapper>
-      <StepHeader step={1} />
+      <StepHeader step={2} />
       <StepBodyWrapper>{renderStepBodyComponent()}</StepBodyWrapper>
     </Wrapper>
   );

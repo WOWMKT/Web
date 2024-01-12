@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import CheckIcon from '../../assets/icon/CheckIcon';
 
 const StepStateBar = ({ step }) => {
   const stepTitleList = [
@@ -21,8 +22,13 @@ const StepStateBar = ({ step }) => {
         {stepTitleList.map((title, index) => (
           <StepLineWrapper key={index}>
             <StepLine />
-            <StepCircle active={index + 1 === step}>
+            <StepCircle active={index + 1 <= step}>
               {index + 1 === step && <InnerCircle />}
+              {index + 1 < step && (
+                <InnerCheckCircle>
+                  <CheckIcon />
+                </InnerCheckCircle>
+              )}
             </StepCircle>
           </StepLineWrapper>
         ))}
@@ -105,13 +111,27 @@ const StepCircle = styled.div`
 
 const InnerCircle = styled.div`
   position: absolute;
+  top: 30%;
+  left: 30%;
+  width: 40%;
+  height: 40%;
+  border-radius: 50%;
+  background-color: #fff; /* 원하는 색상으로 변경 */
+  z-index: 2;
+`;
+
+const InnerCheckCircle = styled.div`
+  position: absolute;
   top: 25%;
   left: 25%;
   width: 50%;
   height: 50%;
   border-radius: 50%;
-  background-color: #fff; /* 원하는 색상으로 변경 */
   z-index: 2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const StepFooter = styled.div`
