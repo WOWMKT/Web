@@ -25,11 +25,11 @@ const StyledButton = styled.button`
   border-radius: 0.5rem;
   cursor: pointer;
   padding: 0 1.6rem;
+  width: 100%;
 
   ${(props) =>
     props.size === 'l' &&
     css`
-      width: 32.5rem;
       height: 4.8rem;
       font-weight: 400;
     `}
