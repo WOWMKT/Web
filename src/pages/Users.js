@@ -45,6 +45,7 @@ export default User;
 
 const Wrapper = styled.div`
   width: 100vw;
+  height: 100vh;
   padding-top: 10rem;
 
   display: flex;
