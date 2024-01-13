@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import DemandRegister from './pages/DemandRegister';
@@ -9,9 +9,19 @@ import MyInfo from './pages/MyInfo.js';
 import Header from './components/common/Header.js';
 
 const App = () => {
+  const [isHeader, setIsHeader] = useState(true);
+
+  useEffect(() => {
+    // 현재 라우팅 확인해 header표시 여부 조정
+    const isMyInfoPage = window.location.pathname
+      .toLowerCase()
+      .startsWith('/myinfo/');
+    setIsHeader(!isMyInfoPage);
+  }, []);
+
   return (
     <div className="App">
-      <Header />
+      {isHeader && <Header />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/users/:page_type" element={<Users />} />
