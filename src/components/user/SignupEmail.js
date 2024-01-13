@@ -57,6 +57,11 @@ const SignupEmail = () => {
           </AgreementElem>
         </AgreementBody>
       </AgreementBox>
+
+      <InputBox>
+        <CommonButton size={'l'} type="fillBlue" children={'로그인'} />
+        <CommonButton size={'l'} type="kakao" children={'카카오로 시작하기'} />
+      </InputBox>
     </Wrapper>
   );
 };

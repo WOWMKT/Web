@@ -45,7 +45,6 @@ export default User;
 
 const Wrapper = styled.div`
   width: 100vw;
-  height: 100vh;
   padding-top: 10rem;
 
   display: flex;
@@ -53,6 +52,8 @@ const Wrapper = styled.div`
 
   padding-left: 3rem;
   padding-right: 3rem;
+
+  padding-bottom: 10rem;
 `;
 const Title = styled.div`
   display: flex;
