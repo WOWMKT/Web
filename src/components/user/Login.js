@@ -6,8 +6,8 @@ const Login = () => {
   return (
     <Wrapper>
       <InputBox>
-        <CommonInput width="100%" placeholder="아이디(이메일)" />
-        <CommonInput width="100%" placeholder="비밀번호" />
+        <CommonInput size={'l'} width="100%" placeholder="아이디(이메일)" />
+        <CommonInput size={'l'} width="100%" placeholder="비밀번호" />
       </InputBox>
       <InputBox>
         <CommonButton size={'l'} type="fillBlue" children={'로그인'} />

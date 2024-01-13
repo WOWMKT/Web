@@ -2,14 +2,19 @@ import styled, { css } from 'styled-components';
 
 //props: placeholder, type(off,on), width
 
-const CommonInput = ({ type = 'off', width = '100%', ...props }) => {
-  return <StyledInput type={type} width={width} {...props} />;
+const CommonInput = ({
+  type = 'off',
+  width = '100%',
+  size = 's',
+  ...props
+}) => {
+  return <StyledInput type={type} width={width} size={size} {...props} />;
 };
 
 export default CommonInput;
 
 const StyledInput = styled.input`
-  /* size가 large :default*/
+  /* size가 s :default*/
   width: ${(props) => (props.width ? props.width : '32.5rem')};
   padding: 1rem;
   align-items: center;
@@ -20,6 +25,15 @@ const StyledInput = styled.input`
   font-weight: 300;
   line-height: normal;
   letter-spacing: -0.12px;
+
+  /* size에 따른 스타일 변경 */
+  ${(props) =>
+    props.size === 'l' &&
+    css`
+      height: 4.8rem;
+      font-size: 1.4rem;
+      font-weight: 400;
+    `}
 
   &::placeholder {
     color: var(--gray-gray1, #646464);
