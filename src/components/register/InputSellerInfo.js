@@ -5,7 +5,7 @@ import CommonCheckBox from '../common/CommonCheckBox';
 import CommonDropDown from '../common/CommonDropDown';
 import CommonButton from '../common/CommonButton';
 
-const InputSellerInfo = () => {
+const InputSellerInfo = ({ handleMoveNext }) => {
   const accountOptions = [
     { value: '우리은행', label: '우리은행' },
     { value: '신한은행', label: '신한은행' },
@@ -67,7 +67,12 @@ const InputSellerInfo = () => {
         </AccountBox>
         <CommonButton size={'l'} type={'fillGray'} children={'+'} />
       </InputSellerAccount>
-      <CommonButton size={'l'} type={'fillBlue'} children={'다음 단계'} />
+      <CommonButton
+        size={'l'}
+        type={'fillBlue'}
+        children={'다음 단계'}
+        onClick={handleMoveNext}
+      />
     </Wrapper>
   );
 };

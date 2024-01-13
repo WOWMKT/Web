@@ -2,15 +2,16 @@ import styled, { css } from 'styled-components';
 
 //props: placeholder, type(off,on), width
 
-const CommonInput = ({ type = 'off', width = '100%', ...props }) => {
+const CommonTextarea = ({ type = 'off', width = '100%', ...props }) => {
   return <StyledInput type={type} width={width} {...props} />;
 };
 
-export default CommonInput;
+export default CommonTextarea;
 
-const StyledInput = styled.input`
+const StyledInput = styled.textarea`
   /* size가 large :default*/
   width: ${(props) => (props.width ? props.width : '32.5rem')};
+  height: 20rem;
   padding: 1rem;
   align-items: center;
   border-radius: 0.5rem;
