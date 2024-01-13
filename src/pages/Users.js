@@ -23,7 +23,7 @@ const User = () => {
 
   const bodyMapping = {
     login: Login,
-    signupEmail: SignupEmail,
+    signup: SignupEmail,
     resetPw: ResetPw,
     univCert: UnivCert,
     kakaoCallback: KakaoCallback,
