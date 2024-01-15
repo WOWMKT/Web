@@ -1,11 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import HeartIcon from '../../assets/icon/HeartIcon';
 import ShareIcon from '../../assets/icon/ShareIcon';
 import CommonButton from '../common/CommonButton';
 import styled from 'styled-components';
 import BorderHeartIcon from '../../assets/icon/BorderHeartIcon';
+import CommonModal from '../common/CommonModal';
+import { useModal } from '../common/ModalContext';
 
 const GoodsDetail = () => {
+  const { isModalOpen, openModal, closeModal } = useModal();
   return (
     <Wrapper>
       <GoodsImg></GoodsImg>
@@ -38,8 +41,18 @@ const GoodsDetail = () => {
         글로, 사진과 글을 임의로 순서를 정해 배치할 수 있습니다. 사진의 경우에는
         좌우에 마진 값이 벗지만 글의 경우에는 화면의 좌우에 여백을 두도록
         합니다.{' '}
-        <CommonButton type={'fillBlue'} children={'구매하기'} size={'l'} />
+        <CommonButton
+          type={'fillBlue'}
+          children={'구매하기'}
+          size={'l'}
+          onClick={openModal}
+        />
       </GoodsInfoBox>
+      <CommonModal isOpen={isModalOpen} onClose={closeModal}>
+        <h2>This is a Modal</h2>
+        <p>Modal Content Goes Here</p>
+        <button onClick={closeModal}>Close Modal</button>
+      </CommonModal>
     </Wrapper>
   );
 };

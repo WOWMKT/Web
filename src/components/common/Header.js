@@ -4,11 +4,13 @@ import HamburgerIcon from '../../assets/icon/HamburgerIcon';
 import WowLogo from '../../assets/WowLogo';
 import SearchIcon from '../../assets/icon/SearchIcon';
 import HeartIcon from '../../assets/icon/HeartIcon';
+import { useModal } from './ModalContext';
 
 const Header = () => {
+  const { isModalOpen } = useModal();
   return (
-    <HeaderWrapper>
-      <Wrapper>
+    <HeaderWrapper isModalOpen={isModalOpen}>
+      <Wrapper isModalOpen={isModalOpen}>
         <IconBox>
           <HamburgerIcon />
         </IconBox>
@@ -30,7 +32,8 @@ const HeaderWrapper = styled.header`
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: white;
+  background-color: ${(props) =>
+    props.isModalOpen ? 'rgba(93, 93, 93, 0)' : 'white'};
   z-index: 1000;
 `;
 
@@ -41,6 +44,7 @@ const Wrapper = styled.div`
   height: 10rem;
   padding-left: 3rem;
   padding-right: 3rem;
+
   border-bottom: 1px solid ${(props) => props.theme.colors.gray2};
 `;
 
