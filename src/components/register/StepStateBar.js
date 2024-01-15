@@ -2,15 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import CheckIcon from '../../assets/icon/CheckIcon';
 
-const StepStateBar = ({ step }) => {
-  const stepTitleList = [
-    '판매자정보',
-    '수령 정보',
-    '상품 정보',
-    '추가 질문',
-    '동의 확인 및 등록',
-  ];
-
+const StepStateBar = ({ step, stepTitleList }) => {
   return (
     <Wrapper>
       <StepTop>
@@ -142,7 +134,7 @@ const StepFooter = styled.div`
 `;
 
 const StepSubtitle = styled.div`
-  width: 5rem;
+  width: 5.5rem;
 
   color: var(--sub1, #003cbc);
 

@@ -39,6 +39,7 @@ const ProjectRegister = () => {
       <StepBody
         handleMoveNext={handleMoveNext}
         handleMoveBefore={handleMoveBefore}
+        isInput={true}
       />
     ) : null;
   };
