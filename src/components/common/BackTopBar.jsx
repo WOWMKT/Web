@@ -21,7 +21,6 @@ const StyledTopBar = styled.div`
   align-items: center;
   justify-content: flex-start;
 
-  padding: 3rem;
   gap: 10rem;
 
   color: var(--black, #000);
@@ -35,4 +34,7 @@ const StyledTopBar = styled.div`
   text-transform: capitalize;
 
   background-color: white;
+
+  padding: 3.4rem;
+  border-bottom: 1px solid #bebebe;
 `;

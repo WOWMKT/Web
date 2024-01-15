@@ -41,13 +41,9 @@ export default MyInfo;
 
 const Wrapper = styled.div`
   width: 100vw;
-  padding-top: 10rem;
 
   display: flex;
   flex-direction: column;
-
-  padding-left: 3rem;
-  padding-right: 3rem;
   padding-bottom: 10rem;
 `;
 const Title = styled.div`

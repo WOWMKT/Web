@@ -7,7 +7,7 @@ const UserInfo = () => {
     <Wrapper>
       <UserInfoTop>
         <PersonIcon />
-        {'이은비님 >'}
+        {'이*비님 >'}
       </UserInfoTop>
       <UserInfoBody>
         <Stack>
@@ -37,7 +37,9 @@ const Wrapper = styled.div`
   flex-direction: column;
 
   gap: 3rem;
-  padding-top: 4rem;
+  padding-top: 14rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
 `;
 const Caption = styled.div`
   position: fixed;
