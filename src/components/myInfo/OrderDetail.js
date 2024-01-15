@@ -4,7 +4,7 @@ import OrderItem from './OrderItem';
 import CommonInput from '../common/CommonInput';
 import styled from 'styled-components';
 
-const OrderDetail = () => {
+const OrderDetail = ({ isSeller = true }) => {
   const dummyData = {
     date: '2023.10.14',
     state: '확인 중',
@@ -22,7 +22,10 @@ const OrderDetail = () => {
             <CaptionGray>no.123124124</CaptionGray>
             <CaptionBlack>2023.01.19</CaptionBlack>
           </ColumnBox>
-          <SmallBut>주문 취소하기</SmallBut>
+
+          {!isSeller && <SmallBut>주문 취소하기</SmallBut>}
+          {isSeller && <SmallBut>임의 주문 취소</SmallBut>}
+          {isSeller && <SmallBut>주문 취소 수락</SmallBut>}
         </OrderHeader>
         <OrderItem order={dummyData} isDateShow={false} />
         <ColumnBox>
