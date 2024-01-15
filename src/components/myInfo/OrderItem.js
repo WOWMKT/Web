@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-const OrderItem = ({ order }) => {
-  const [isDateShow, setIsDateShow] = useState(true);
+const OrderItem = ({ order, isDateShow = true, isDeleteShow = false }) => {
+  const [isModiAble, setIsModiAble] = useState(true);
 
   return (
     <Wrapper>
@@ -11,7 +11,10 @@ const OrderItem = ({ order }) => {
           <DetailBut> {'상세보기 >'}</DetailBut>
         </Date>
       )}
-      <State>{order.state}</State>
+      <State>
+        {order.state}
+        {isDeleteShow && <DeleteBut>종료하기</DeleteBut>}
+      </State>
       <ProductBox>
         <BoxLeft></BoxLeft>
         <BoxRight>
@@ -59,6 +62,10 @@ const State = styled.div`
   text-transform: capitalize;
 
   padding-top: 2rem;
+
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
 `;
 
 const Filter = styled.div`
@@ -114,4 +121,7 @@ const ProductBox = styled.div`
 
   padding-top: 2rem;
   padding-bottom: 2rem;
+`;
+const DeleteBut = styled.div`
+  color: var(--red, #f00);
 `;
