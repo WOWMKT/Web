@@ -13,11 +13,11 @@ const MyInfo = () => {
   const { page_type } = useParams();
 
   const bodyMapping = {
-    myOrder: MyOrder,
-    orderDetail: OrderDetail,
-    myRegister: MyRegister,
-    registerDetail: RegisterDetail,
-    formManage: FormManage,
+    myorder: MyOrder,
+    orderdetail: OrderDetail,
+    myregister: MyRegister,
+    registerdetail: RegisterDetail,
+    formmanage: FormManage,
   };
 
   const MyInfoBody = bodyMapping[page_type];

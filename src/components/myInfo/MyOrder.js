@@ -1,11 +1,51 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import BackTopBar from '../common/BackTopBar';
+import OrderItem from './OrderItem';
 
 const MyOrder = () => {
+  const dummList = [
+    {
+      date: '2023.10.14',
+      state: '확인 중',
+      filter: '판매',
+      title: '00대학교',
+      subTitle: '와움이 인형 프로젝트',
+      price: '25,000',
+    },
+    {
+      date: '2023.10.10',
+      state: '배송대기중',
+      filter: '판매',
+      title: '00대학교',
+      subTitle: '와움이 인형 프로젝트',
+      price: '35,000',
+    },
+    {
+      date: '2023.10.8',
+      state: '배송대기중',
+      filter: '판매',
+      title: '00대학교',
+      subTitle: '와움이 인형 프로젝트',
+      price: '35,000',
+    },
+  ];
+
   return (
     <Wrapper>
       <BackTopBar children={'나의 주문'} />
+      <OrderBody>
+        <FilterBar>
+          <FilterTag>전체</FilterTag>
+          <FilterTag>판매</FilterTag>
+          <FilterTag>수요조사</FilterTag>
+        </FilterBar>
+        <OrderList>
+          {dummList.map((order, index) => (
+            <OrderItem key={index} order={order} />
+          ))}
+        </OrderList>
+      </OrderBody>
     </Wrapper>
   );
 };
@@ -16,102 +56,36 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const Caption = styled.div`
-  position: fixed;
-  bottom: 2rem;
-  width: 85%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--main, #002472);
 
-  /* Sub Text */
-  font-size: 1.6rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  letter-spacing: -0.16px;
-  text-transform: capitalize;
-  margin-bottom: 0; /* To remove any default margin */
+const OrderBody = styled.div`
+  padding-left: 3rem;
+  padding-right: 3rem;
 `;
-
-const UserInfoTop = styled.div`
+const FilterBar = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-content: center;
-
-  gap: 1.8rem;
-  color: #646464;
-
-  /* Heading */
-  font-size: 2rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  letter-spacing: -0.2px;
-  text-transform: capitalize;
-`;
-
-const UserInfoBody = styled.div`
-  display: flex;
-  flex-direction: column;
-
+  align-items: center;
   gap: 2rem;
-  border-bottom: 1px solid #bebebe;
+
+  padding-top: 3rem;
   padding-bottom: 3rem;
 `;
-
-const Stack = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const StackLeft = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 30%;
-
+const FilterTag = styled.div`
+  border-radius: 0.5rem;
+  border: 1px solid #646464;
   color: #646464;
 
-  /* Body 1 */
+  /* Body 3 */
   font-size: 1.4rem;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   line-height: normal;
   letter-spacing: -0.14px;
-`;
-const StackRight = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 90%;
 
-  color: var(--black, #000);
-
-  /* Body 1 */
-  font-size: 1.4rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  letter-spacing: -0.14px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 `;
-
-const UserInfoFooter = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
-const MyInfoBut = styled.button`
-  height: 4.8rem;
-  border-radius: 3rem;
-  border: 1px solid var(--sub1, #003cbc);
-  color: var(--main, #002472);
-
-  /* Sub Text */
-  font-size: 1.6rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  letter-spacing: -0.16px;
-  text-transform: capitalize;
-`;
+const OrderList = styled.div``;
