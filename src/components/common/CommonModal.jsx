@@ -42,7 +42,7 @@ const ModalContent = styled.div`
   background-color: white;
   width: 100%;
   border-radius: 2.5rem 2.5rem 0 0;
-  height: 80%;
+  height: 85%;
   padding: 3rem;
 `;
 

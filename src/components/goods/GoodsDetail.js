@@ -48,11 +48,7 @@ const GoodsDetail = () => {
           onClick={openModal}
         />
       </GoodsInfoBox>
-      <CommonModal isOpen={isModalOpen} onClose={closeModal}>
-        <h2>This is a Modal</h2>
-        <p>Modal Content Goes Here</p>
-        <button onClick={closeModal}>Close Modal</button>
-      </CommonModal>
+      <CommonModal children={<h1>호호호</h1>}></CommonModal>
     </Wrapper>
   );
 };
