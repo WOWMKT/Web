@@ -3,7 +3,11 @@ import styled from 'styled-components';
 import CommonButton from '../common/CommonButton';
 import CommonInput from '../common/CommonInput';
 
-const InputGetWayInfo = ({ handleMoveNext, handleMoveBefore }) => {
+const InputGetWayInfo = ({
+  handleMoveNext,
+  handleMoveBefore,
+  isInput = false,
+}) => {
   return (
     <Wrapper>
       <GetWayWrapper>
@@ -18,22 +22,26 @@ const InputGetWayInfo = ({ handleMoveNext, handleMoveBefore }) => {
           <SubTitle>배송비*</SubTitle>
           <CommonInput width="40%" type="off" />
         </DetailInputBox>
-        <CommonButton size={'l'} type={'fillGray'} children={'+'} />
+        {isInput && (
+          <CommonButton size={'l'} type={'fillGray'} children={'+'} />
+        )}
       </GetWayWrapper>
-      <ButtonBox>
-        <CommonButton
-          size={'s'}
-          type={'lineBlue'}
-          children={'이전 단계'}
-          onClick={handleMoveBefore}
-        />
-        <CommonButton
-          size={'s'}
-          type={'fillBlue'}
-          children={'다음 단계'}
-          onClick={handleMoveNext}
-        />{' '}
-      </ButtonBox>
+      {isInput && (
+        <ButtonBox>
+          <CommonButton
+            size={'s'}
+            type={'lineBlue'}
+            children={'이전 단계'}
+            onClick={handleMoveBefore}
+          />
+          <CommonButton
+            size={'s'}
+            type={'fillBlue'}
+            children={'다음 단계'}
+            onClick={handleMoveNext}
+          />{' '}
+        </ButtonBox>
+      )}
     </Wrapper>
   );
 };
@@ -45,8 +53,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3.6rem;
-
-  padding-bottom: 10rem;
 `;
 const GetWayWrapper = styled.div`
   display: flex;
