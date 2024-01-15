@@ -11,14 +11,14 @@ const GoodsDetail = () => {
       <GoodsImg></GoodsImg>
       <GoodsInfoBox>
         <RowBox>
-          <RowBox>
+          <RowBoxBar>
             <CaptionBlack>카테고리</CaptionBlack>
             <CaptionGray>OO대학교</CaptionGray>
-          </RowBox>
-          <RowBox>
+          </RowBoxBar>
+          <RowBoxBar>
             <BorderHeartIcon />
             <ShareIcon />
-          </RowBox>
+          </RowBoxBar>
         </RowBox>
         <Box>
           <Title>프로젝트 제목</Title>
@@ -86,6 +86,16 @@ const RowBox = styled.div`
 
   justify-content: space-between;
   align-items: center;
+`;
+
+const RowBoxBar = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 1rem;
 `;
 const CaptionBlack = styled.div`
   color: #646464;
