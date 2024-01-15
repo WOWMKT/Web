@@ -5,7 +5,7 @@ import GoodsNoti from '../components/goods/GoodsNoti';
 import styled from 'styled-components';
 
 const Goods = () => {
-  const [pageType, setpageType] = useState(1); //0~2
+  const [pageType, setpageType] = useState(2); //0~2
 
   //컴포넌트 배열
   const GoodsBodyList = [GoodsDetail, GoodsNoti, GoodsAsk];
