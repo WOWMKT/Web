@@ -13,7 +13,7 @@ const GoodsNoti = () => {
     { title: '배송시작 공지', seller: '판매자', date: '2023. 09. 18' },
   ];
 
-  const [isInput, setIsInput] = useState(true);
+  const [isInput, setIsInput] = useState(false);
 
   return (
     <>
@@ -30,6 +30,7 @@ const GoodsNoti = () => {
             children={'공지 작성하기'}
             size={'l'}
             width={'100%'}
+            onClick={() => setIsInput(true)}
           />
           {dummList.map((noti, index) => (
             <NotiItem key={index} noti={noti} />

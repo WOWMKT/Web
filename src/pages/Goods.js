@@ -2,10 +2,10 @@ import { useState } from 'react';
 import GoodsAsk from '../components/goods/GoodsAsk';
 import GoodsDetail from '../components/goods/GoodsDetail';
 import GoodsNoti from '../components/goods/GoodsNoti';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const Goods = () => {
-  const [pageType, setpageType] = useState(2); //0~2
+  const [pageType, setPageType] = useState(0); //0~2
 
   //컴포넌트 배열
   const GoodsBodyList = [GoodsDetail, GoodsNoti, GoodsAsk];
@@ -14,13 +14,32 @@ const Goods = () => {
     const GoodsBody = GoodsBodyList[pageType];
     return GoodsBody ? <GoodsBody /> : null;
   };
+  // 클릭 이벤트 핸들러
+  const handleSubTitleClick = (index) => {
+    setPageType(index);
+  };
 
   return (
     <Wrapper>
       <Header>
-        <SubTitle>상품 설명</SubTitle>
-        <SubTitle>공지</SubTitle>
-        <SubTitle>문의</SubTitle>
+        <SubTitle
+          onClick={() => handleSubTitleClick(0)}
+          active={pageType === 0}
+        >
+          상품 설명
+        </SubTitle>
+        <SubTitle
+          onClick={() => handleSubTitleClick(1)}
+          active={pageType === 1}
+        >
+          공지
+        </SubTitle>
+        <SubTitle
+          onClick={() => handleSubTitleClick(2)}
+          active={pageType === 2}
+        >
+          문의
+        </SubTitle>
       </Header>
       <GoodsBodyWrapper>{renderGoodsBodyComponent()}</GoodsBodyWrapper>
     </Wrapper>
@@ -51,6 +70,13 @@ const SubTitle = styled.button`
   font-weight: 500;
   line-height: normal;
   text-transform: capitalize;
+
+  ${(props) =>
+    props.active &&
+    css`
+      color: var(--main, #002472);
+      border-bottom: 2px solid #002472;
+    `};
 `;
 const GoodsBodyWrapper = styled.div`
   display: flex;

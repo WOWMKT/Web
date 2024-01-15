@@ -25,7 +25,7 @@ const GoodsAsk = () => {
     },
   ];
 
-  const [isInput, setIsInput] = useState(true);
+  const [isInput, setIsInput] = useState(false);
 
   return (
     <>
@@ -46,6 +46,7 @@ const GoodsAsk = () => {
             children={'상품 문의하기'}
             size={'l'}
             width={'100%'}
+            onClick={() => setIsInput(true)}
           />
           {dummList.map((ask, index) => (
             <AskItem key={index} ask={ask} />
