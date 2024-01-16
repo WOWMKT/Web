@@ -39,6 +39,7 @@ const ProjectRegister = () => {
       <StepBody
         handleMoveNext={handleMoveNext}
         handleMoveBefore={handleMoveBefore}
+        isInput={true}
       />
     ) : null;
   };
@@ -55,8 +56,8 @@ export default ProjectRegister;
 
 const Wrapper = styled.div`
   width: 100vw;
-  height: 100vh;
   padding-top: 10rem;
+  padding-bottom: 10rem;
 
   display: flex;
   flex-direction: column;
