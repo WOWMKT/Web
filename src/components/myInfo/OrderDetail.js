@@ -4,7 +4,7 @@ import OrderItem from './OrderItem';
 import CommonInput from '../common/CommonInput';
 import styled from 'styled-components';
 
-const OrderDetail = ({ isSeller = true }) => {
+const OrderDetail = ({ isSeller = true, isInput = false }) => {
   const dummyData = {
     date: '2023.10.14',
     state: '확인 중',
@@ -15,19 +15,25 @@ const OrderDetail = ({ isSeller = true }) => {
   };
   return (
     <Wrapper>
-      <BackTopBar children={'주문상세'} />
-      <OrderBody>
-        <OrderHeader>
-          <ColumnBox>
-            <CaptionGray>no.123124124</CaptionGray>
-            <CaptionBlack>2023.01.19</CaptionBlack>
-          </ColumnBox>
+      {!isInput && <BackTopBar children={'주문상세'} />}
 
-          {!isSeller && <SmallBut>주문 취소하기</SmallBut>}
-          {isSeller && <SmallBut>임의 주문 취소</SmallBut>}
-          {isSeller && <SmallBut>주문 취소 수락</SmallBut>}
-        </OrderHeader>
-        <OrderItem order={dummyData} isDateShow={false} />
+      <OrderBody isInput={isInput}>
+        {!isInput && (
+          <>
+            <OrderHeader>
+              <ColumnBox>
+                <CaptionGray>no.123124124</CaptionGray>
+                <CaptionBlack>2023.01.19</CaptionBlack>
+              </ColumnBox>
+
+              {!isSeller && <SmallBut>주문 취소하기</SmallBut>}
+              {isSeller && <SmallBut>임의 주문 취소</SmallBut>}
+              {isSeller && <SmallBut>주문 취소 수락</SmallBut>}
+            </OrderHeader>
+            <OrderItem order={dummyData} isDateShow={false} />
+          </>
+        )}
+
         <ColumnBox>
           <SubTitle>수령 방법</SubTitle>
           <PriceInfoBox>
@@ -192,8 +198,17 @@ const OrderBody = styled.div`
   display: flex;
   flex-direction: column;
 
-  padding: 3rem;
+  padding-top: 3rem;
   gap: 3rem;
+
+  height: 100%;
+
+  ${({ isInput }) =>
+    !isInput &&
+    `
+    padding-left: 3rem;
+    padding-right: 3rem;
+  `}
 `;
 
 const ColumnBox = styled.div`
