@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Home from './pages/Home';
+import Home from './pages/Home.js';
 import DemandRegister from './pages/DemandRegister';
 import ProjectRegister from './pages/ProjectRegister.js';
 import Users from './pages/Users';
