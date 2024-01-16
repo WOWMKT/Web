@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useModal } from './ModalContext';
 import useClickOutside from '../../hooks/useClickoutside';
 
-const CommonModal = ({ children }) => {
+const CommonModal = ({ children, title }) => {
   const { isModalOpen, closeModal } = useModal();
 
   //외부클릭 모달 닫기 hook
@@ -27,7 +27,7 @@ const CommonModal = ({ children }) => {
   return (
     <ModalWrapper isOpen={isModalOpen} ref={modalRef}>
       <ModalContent>
-        <Title>주문폼</Title>
+        <Title>{title}</Title>
         {children}
       </ModalContent>
     </ModalWrapper>

@@ -7,9 +7,13 @@ import BorderHeartIcon from '../../assets/icon/BorderHeartIcon';
 import CommonModal from '../common/CommonModal';
 import { useModal } from '../common/ModalContext';
 import OrderForm from './OrderForm';
+import DemandForm from './DemandForm';
 
 const GoodsDetail = () => {
   const { isModalOpen, openModal, closeModal } = useModal();
+  //판매vs수요조사 여부 (추후 useParams로 받기)
+  const { isOrder, setIsOrder } = useState(false);
+
   return (
     <>
       <Wrapper>
@@ -51,7 +55,11 @@ const GoodsDetail = () => {
           />
         </GoodsInfoBox>
       </Wrapper>
-      <CommonModal children={<OrderForm />}></CommonModal>
+      {isOrder ? (
+        <CommonModal children={<OrderForm />} title={'주문폼'}></CommonModal>
+      ) : (
+        <CommonModal children={<DemandForm />} title={'참여폼'}></CommonModal>
+      )}
     </>
   );
 };

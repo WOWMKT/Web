@@ -4,7 +4,10 @@ import OrderItem from './OrderItem';
 import CommonInput from '../common/CommonInput';
 import styled from 'styled-components';
 
-const OrderDetail = ({ isSeller = true, isInput = false }) => {
+const OrderDetail = ({ isSeller = true, isOrderForm = false }) => {
+  //default:/myinfo/orderdetail 주문상세 페이지
+  // isOrderForm: /goods/detail 주문폼 모달
+
   const dummyData = {
     date: '2023.10.14',
     state: '확인 중',
@@ -15,10 +18,10 @@ const OrderDetail = ({ isSeller = true, isInput = false }) => {
   };
   return (
     <Wrapper>
-      {!isInput && <BackTopBar children={'주문상세'} />}
+      {!isOrderForm && <BackTopBar children={'주문상세'} />}
 
-      <OrderBody isInput={isInput}>
-        {!isInput && (
+      <OrderBody isOrderForm={isOrderForm}>
+        {!isOrderForm && (
           <>
             <OrderHeader>
               <ColumnBox>
@@ -203,8 +206,8 @@ const OrderBody = styled.div`
 
   height: 100%;
 
-  ${({ isInput }) =>
-    !isInput &&
+  ${({ isOrderForm }) =>
+    !isOrderForm &&
     `
     padding-left: 3rem;
     padding-right: 3rem;
