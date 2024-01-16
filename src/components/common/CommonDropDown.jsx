@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 //<CommonDropDown options={categoryOptions} onSelect={handleSelect} />
 
-const CommonDropDown = ({ options, onSelect, style = '' }) => {
+const CommonDropDown = ({ options, onSelect, style = {} }) => {
   const [selectedOption, setSelectedOption] = useState(options[0]);
 
   const handleSelectChange = (event) => {
