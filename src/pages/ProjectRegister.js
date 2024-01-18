@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Component } from 'react';
 import styled from 'styled-components';
 import StepHeader from '../components/register/StepHeader';
 import InputAgreementInfo from '../components/register/InputAgreementInfo';
@@ -7,13 +7,57 @@ import InputGetWayInfo from '../components/register/InputGetWayInfo';
 import InputGoodsInfo from '../components/register/InputGoodsInfo';
 import InputSellerInfo from '../components/register/InputSellerInfo';
 import CommonCheckBox from '../components/common/CommonCheckBox';
+import { usePostProjectRegister } from '../apis/post/register/usePostProjectRegister';
 
 const ProjectRegister = () => {
+  //추후 public으로 분리
+  const banks = ['KB국민', 'IBK기업'];
+
+  //입력데이터 처리
+  const [formData, setFormData] = useState({
+    projectName: '프로젝트이름',
+    description: '프로젝트 설명',
+    category_id: 1,
+    sellerName: '판매자',
+    phoneNumber: '0101010101',
+    sellerEtc: '@wow',
+    item: [
+      { item_name: 'doll1', price: 1000, goal: 100 },
+      { item_name: 'doo1', price: 10010, goal: 10 },
+    ],
+    questions: [
+      { question: '엥?', essential: true },
+      { question: '엥?', essential: false },
+    ],
+    thumbnail: 's3.image.thumbnail',
+    image1: 's3.image.thumbnail',
+    startDate: '2023-01-01T01:01:00',
+    endDate: '2024-02-01T01:01:00',
+    receiveType: 'ALL',
+    receiveAddress: '홍익대학교 홍문관 4층',
+    deliveryType: '우체국 택배',
+    deliveryFee: 3000,
+    bank: '국민',
+    account: '50160201000111',
+    accountHolderName: '예금주 김이사',
+    nickname: '판매자',
+    sellToAll: true,
+  });
+
+  //custom-hook
+  const fetchData = usePostProjectRegister();
+
+  const handleSubmit = () => {
+    fetchData.projectRegister(formData);
+  };
+
+  //rendering step
   const [step, setStep] = useState(1); //1~5
   const handleMoveNext = () => {
     if (step < 5) {
       setStep(step + 1);
     } else {
+      handleSubmit();
       alert('마지막 페이지!');
     }
   };
@@ -24,7 +68,6 @@ const ProjectRegister = () => {
     }
   };
 
-  // 단계별 컴포넌트 배열
   const InputInfoList = [
     InputSellerInfo,
     InputGetWayInfo,
@@ -32,7 +75,7 @@ const ProjectRegister = () => {
     InputExtraQuestionInfo,
     InputAgreementInfo,
   ];
-  // step 값에 따른 컴포넌트 렌더링 함수
+
   const renderStepBodyComponent = () => {
     const StepBody = InputInfoList[step - 1];
     return StepBody ? (
