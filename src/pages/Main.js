@@ -24,12 +24,12 @@ const Main = () => {
 
   const customDropDownStyle = {
     width: '8rem',
-    height: '3rem',
+    height: '2.5rem',
     borderRadius: '3rem',
     border: '1px solid var(--sub3, #75A1FF)',
     color: '#646464',
     fontSize: '1rem',
-    padding: '0.7rem',
+    padding: '0.2rem',
   };
 
   const [goodsList, setGoodsList] = useState([
@@ -38,11 +38,21 @@ const Main = () => {
       seller: '제작자',
       univ: '굿즈대학교',
       performance: '30%',
+      title: '굿즈 제목',
     },
     {
       imgLink: 'urlurl',
       seller: '제작자',
       univ: '굿즈대학교',
+      performance: '30%',
+      title: '굿즈 제목',
+    },
+    ,
+    {
+      imgLink: 'urlurl',
+      seller: '제작자',
+      univ: '굿즈대학교',
+      title: '굿즈 제목',
       performance: '30%',
     },
     ,
@@ -51,6 +61,7 @@ const Main = () => {
       seller: '제작자',
       univ: '굿즈대학교',
       performance: '30%',
+      title: '굿즈 제목',
     },
     ,
     {
@@ -58,13 +69,7 @@ const Main = () => {
       seller: '제작자',
       univ: '굿즈대학교',
       performance: '30%',
-    },
-    ,
-    {
-      imgLink: 'urlurl',
-      seller: '제작자',
-      univ: '굿즈대학교',
-      performance: '30%',
+      title: '굿즈 제목',
     },
   ]);
 
@@ -84,7 +89,7 @@ const Main = () => {
         </BarRight>
       </TopBar>
       <FilterBar>
-        <ProductNum>총 n개</ProductNum>
+        <ProductNum>총 3개</ProductNum>
         <CommonDropDown
           options={categoryOptions}
           onSelect={handleSelect}
@@ -100,11 +105,12 @@ const Main = () => {
       <Body>
         {goodsList.map((good, index) => (
           <GoodsMainView
-            key={index} // It's important to include a unique key for each item in the list
+            key={index}
             imgLink={good.imgLink}
             seller={good.seller}
             univ={good.univ}
             performance={good.performance}
+            title={good.title}
           />
         ))}
       </Body>

@@ -11,17 +11,18 @@ const UnivToggle = ({ isAllSchools, onSelect }) => {
 
   return (
     <ToggleButton onClick={handleToggle} isSelected={isSelected}>
-      {isAllSchools ? '전체 학교' : '우리학교'}
+      {isAllSchools ? '전체학교' : '우리학교'}
     </ToggleButton>
   );
 };
 
 const ToggleButton = styled.button`
   color: #646464;
-  padding: 10px;
-  margin: 5px;
   cursor: pointer;
   outline: none;
+
+  display: flex;
+  align-items: center;
 
   &:hover {
     color: ${(props) => (props.isSelected ? '#002472' : '#646464')};
