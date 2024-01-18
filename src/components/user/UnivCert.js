@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CommonInput from '../common/CommonInput';
 import CommonButton from '../common/CommonButton';
 import styled from 'styled-components';
@@ -9,8 +9,8 @@ import { usePostUnivCode } from '../../apis/post/users/usePostUnivCode';
 const UnivCert = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isCodeSent, setIsCodeSent] = useState(searchParams.get('isCodeSent'));
-  const [univName, setUnivName] = useState('홍익대학교');
-  const [univEmail, setUnivEmail] = useState('ekdldkaa@g.hongik.ac.kr');
+  const [univName, setUnivName] = useState('');
+  const [univEmail, setUnivEmail] = useState('');
   const [code, setCode] = useState('');
 
   //public 데이터로 저장 필요
@@ -49,8 +49,17 @@ const UnivCert = () => {
   };
 
   const handleSelect = (selectedOption) => {
-    setUnivName(selectedOption);
+    setUnivName(selectedOption.value);
   };
+
+  useEffect(() => {
+    console.log(isCodeSent);
+    if (isCodeSent === null) {
+      setIsCodeSent(false);
+    } else {
+      setIsCodeSent(true);
+    }
+  }, [isCodeSent]);
 
   return (
     <Wrapper>
@@ -85,12 +94,14 @@ const UnivCert = () => {
           name="code"
           value={code}
           onChange={handleInputChange}
+          disabled={!isCodeSent}
         />
         <CommonButton
           size={'l'}
           type="fillGray"
           children={'인증번호 확인'}
           onClick={handleSubmitUnivCode}
+          disabled={!isCodeSent}
         />
       </InputBox>
       <CaptionBox>{'> 다음에 인증하기'}</CaptionBox>
