@@ -6,9 +6,20 @@ const CommonInput = ({
   type = 'off',
   width = '100%',
   size = 's',
+  value = '',
+  onChange = {},
   ...props
 }) => {
-  return <StyledInput type={type} width={width} size={size} {...props} />;
+  return (
+    <StyledInput
+      type={type}
+      width={width}
+      size={size}
+      value={value}
+      onChange={onChange}
+      {...props}
+    />
+  );
 };
 
 export default CommonInput;
