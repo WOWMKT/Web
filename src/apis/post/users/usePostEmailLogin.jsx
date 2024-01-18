@@ -39,6 +39,7 @@ export const usePostEmailLogin = () => {
       // 임시 비밀번호면 resetPW로 넘기기
       if (res.temporaryPw) {
         console.log('비밀번호 재설정으로');
+        alert('비밀번호를 재설정해주세요');
         navigate(`/users/resetPw?user_id=${email}`);
       } else {
         navigate(`/`);
