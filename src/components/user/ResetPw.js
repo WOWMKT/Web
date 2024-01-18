@@ -12,7 +12,6 @@ const ResetPw = () => {
   const [pw, setPw] = useState('');
   const [pwCk, setPwCk] = useState('');
 
-  console.log(email);
   //custom-hook
   const fetchData = usePostTempPw();
 
