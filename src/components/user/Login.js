@@ -1,8 +1,29 @@
+import { useCallback, useState } from 'react';
 import CommonButton from '../common/CommonButton';
 import CommonInput from '../common/CommonInput';
 import styled from 'styled-components';
+import { usePostEmailLogin } from '../../apis/post/users/usePostEmailLogin';
 
 const Login = () => {
+  const [idValue, setIdValue] = useState('seoyoung@naver.com');
+  const [passwordValue, setPasswordValue] = useState('seoyoung');
+  const [isFilled, setIsFilled] = useState(false);
+
+  //custom-hook
+  const fetchData = usePostEmailLogin();
+
+  const moveToKakao = () => {
+    window.location.href =
+      'https://kauth.kakao.com/oauth/authorize?client_id=5f5637e7e7a8e9c602eff8abb6909200&redirect_uri=https://wowmarket-web.vercel.app/users/kakao&response_type=code';
+  };
+
+  const handleSubmit = () => {
+    fetchData.emailLogin({
+      email: idValue,
+      password: passwordValue,
+    });
+  };
+
   return (
     <Wrapper>
       <InputBox>
@@ -10,8 +31,18 @@ const Login = () => {
         <CommonInput size={'l'} width="100%" placeholder="비밀번호" />
       </InputBox>
       <InputBox>
-        <CommonButton size={'l'} type="fillBlue" children={'로그인'} />
-        <CommonButton size={'l'} type="kakao" children={'카카오 로그인'} />
+        <CommonButton
+          size={'l'}
+          type="fillBlue"
+          children={'로그인'}
+          onClick={handleSubmit}
+        />
+        <CommonButton
+          size={'l'}
+          type="kakao"
+          children={'카카오 로그인'}
+          onClick={moveToKakao}
+        />
       </InputBox>
       <CaptionBox>
         <CaptionBut>회원가입</CaptionBut>
