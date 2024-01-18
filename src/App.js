@@ -8,6 +8,7 @@ import Goods from './pages/Goods';
 import MyInfo from './pages/MyInfo.js';
 import Header from './components/common/Header.js';
 import { ModalProvider } from './components/common/ModalContext.jsx';
+import Search from './pages/Search.js';
 
 const App = () => {
   const [isHeader, setIsHeader] = useState(true);
@@ -17,6 +18,14 @@ const App = () => {
     const isMyInfoPage = window.location.pathname
       .toLowerCase()
       .startsWith('/myinfo/');
+    setIsHeader(!isMyInfoPage);
+  }, []);
+
+  useEffect(() => {
+    // 현재 라우팅 확인해 header표시 여부 조정
+    const isMyInfoPage = window.location.pathname
+      .toLowerCase()
+      .startsWith('/search');
     setIsHeader(!isMyInfoPage);
   }, []);
 
@@ -33,6 +42,7 @@ const App = () => {
           {/* page_type : myOrder || orderDetail || myRegister || registerDetail || formManage*/}
           <Route path="/myinfo/:page_type" element={<MyInfo />} />
           <Route path="/myinfo" element={<MyInfo />} />
+          <Route path="/search" element={<Search />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </ModalProvider>
