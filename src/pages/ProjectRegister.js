@@ -15,12 +15,18 @@ const ProjectRegister = () => {
 
   //입력데이터 처리
   const [formData, setFormData] = useState({
+    //inputSellerInfo
+    sellerName: '',
+    nickname: '',
+    phoneNumber: '',
+    sellerEtc: '',
+    bank: '',
+    account: '',
+    accountHolderName: '',
+
     projectName: '프로젝트이름',
     description: '프로젝트 설명',
     category_id: 1,
-    sellerName: '판매자',
-    phoneNumber: '0101010101',
-    sellerEtc: '@wow',
     item: [
       { item_name: 'doll1', price: 1000, goal: 100 },
       { item_name: 'doo1', price: 10010, goal: 10 },
@@ -37,12 +43,17 @@ const ProjectRegister = () => {
     receiveAddress: '홍익대학교 홍문관 4층',
     deliveryType: '우체국 택배',
     deliveryFee: 3000,
-    bank: '국민',
-    account: '50160201000111',
-    accountHolderName: '예금주 김이사',
-    nickname: '판매자',
+
     sellToAll: true,
   });
+
+  // Input change handler
+  const handleInputChange = (name, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   //custom-hook
   const fetchData = usePostProjectRegister();
@@ -51,7 +62,7 @@ const ProjectRegister = () => {
     fetchData.projectRegister(formData);
   };
 
-  //rendering step
+  //render step
   const [step, setStep] = useState(1); //1~5
   const handleMoveNext = () => {
     if (step < 5) {
@@ -83,6 +94,7 @@ const ProjectRegister = () => {
         handleMoveNext={handleMoveNext}
         handleMoveBefore={handleMoveBefore}
         isInput={true}
+        handleInputChange={handleInputChange}
       />
     ) : null;
   };
