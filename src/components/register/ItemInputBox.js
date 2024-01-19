@@ -2,27 +2,64 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import CommonButton from '../common/CommonButton';
 import CommonInput from '../common/CommonInput';
-import CommonDropDown from '../common/CommonDropDown';
-import CommonCalender from '../common/CommonCalendar';
 import CommonCheckBox from '../common/CommonCheckBox';
 import CommonTextarea from '../common/CommonTextarea';
 
-const ItemInputBox = ({}) => {
+const ItemInputBox = ({ addItem }) => {
+  const [itemName, setItemName] = useState('');
+  const [price, setPrice] = useState('');
+  const [goal, setGoal] = useState('');
+
+  const handleAddItem = () => {
+    const newItem = {
+      item_name: itemName,
+      price: Number(price),
+      goal: Number(goal),
+    };
+    addItem(newItem);
+    console.log(newItem);
+
+    setItemName('');
+    setPrice('');
+    setGoal('');
+  };
+
   return (
     <>
       <DetailInputBox>
         <SubTitle>상품 이름*</SubTitle>
-        <CommonInput width="100%" type="off" />
+        <CommonInput
+          width="100%"
+          type="off"
+          value={itemName}
+          onChange={(e) => setItemName(e.target.value)}
+        />
         <SubTitle>가격*</SubTitle>
-        <CommonInput width="40%" type="off" />
+        <CommonInput
+          width="40%"
+          type="off"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+        />
         <SubTitle>재고*</SubTitle>
-        <CommonInput width="40%" type="off" />
+        <CommonInput
+          width="40%"
+          type="off"
+          value={goal}
+          onChange={(e) => setGoal(e.target.value)}
+        />
         <ConnectBox>
           <CommonCheckBox />
           <CheckBoxTitle>구매개수 제한</CheckBoxTitle>
           <CommonInput width="40%" type="off" />
         </ConnectBox>
       </DetailInputBox>
+      <CommonButton
+        type={'fillGray'}
+        size={'l'}
+        children={'+'}
+        onClick={handleAddItem}
+      />
     </>
   );
 };

@@ -3,14 +3,13 @@ import styled from 'styled-components';
 import CommonButton from '../common/CommonButton';
 import CommonInput from '../common/CommonInput';
 import CommonDropDown from '../common/CommonDropDown';
-import CommonCalender from '../common/CommonCalendar';
-import CommonCheckBox from '../common/CommonCheckBox';
 import CommonTextarea from '../common/CommonTextarea';
 import ItemInputBox from './ItemInputBox';
 import { useGetImageUrl } from '../../apis/get/register/useGetImageUrl';
 import { usePutImage } from '../../apis/post/register/usePutImage';
 import axios from 'axios';
 import axiosInstance from '../../apis';
+import Calendar from '../common/Calendar';
 
 const InputGoodsInfo = ({
   handleMoveNext,
@@ -23,6 +22,22 @@ const InputGoodsInfo = ({
     { value: '2번', label: '2번' },
     { value: '3번', label: '3번' },
   ];
+  const [projectName, setProjectName] = useState('');
+  const [thumbnail, setThumbnail] = useState('');
+  const [categoryId, setCategoryId] = useState(1);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [description, setDescription] = useState('');
+  //const [image1, setImage1] = useState('');
+  const [itemList, setItemList] = useState([]);
+
+  //img관련 state
+  const [mode, setMode] = useState('project');
+  const [isImgUpdate, setIsImgUpdate] = useState(false);
+  const [presignedUrl, setPresignedUrl] = useState('');
+  const [desiredUrl, setDesiredUrl] = useState('');
+  const [selectedFile, setSelectedFile] = useState(null);
+
   const handleSelect = (selectedOption) => {
     setCategoryId(
       categoryOptions.findIndex(
@@ -32,37 +47,18 @@ const InputGoodsInfo = ({
     handleInputChange('categoryId', categoryId);
   };
 
-  const [itemInputBoxes, setItemInputBoxes] = useState([
-    <ItemInputBox key={0} />,
-  ]);
+  //itemList처리
+  const addItem = (newItem) => {
+    setItemList((prevItems) => [...prevItems, newItem]);
+  };
 
-  const [projectName, setProjectName] = useState('');
-  const [thumbnail, setThumbnail] = useState('');
-  const [categoryId, setCategoryId] = useState(1);
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [description, setDescription] = useState('');
-  //const [image1, setImage1] = useState('');
-  const [item, setItem] = useState([]);
-
-  //img관련 state
-  const [mode, setMode] = useState('project');
-  const [isImgUpdate, setIsImgUpdate] = useState(false);
-  const [presignedUrl, setPresignedUrl] = useState('');
-  const [desiredUrl, setDesiredUrl] = useState('');
-  const [selectedFile, setSelectedFile] = useState(null);
+  useEffect(() => {
+    handleInputChange('item', itemList);
+  }, [itemList]);
 
   //custom-hook
   const fetchedUrl = useGetImageUrl(mode); //대표이미지 들어갈 url
-  const fetchData = usePutImage();
-
-  const handleAddItemInputBox = () => {
-    // 현재 itemInputBoxes 상태 배열을 복제한 후 새로운 ItemInputBox를 추가합니다
-    setItemInputBoxes((prevBoxes) => [
-      ...prevBoxes,
-      <ItemInputBox key={prevBoxes.length} />,
-    ]);
-  };
+  // const fetchData = usePutImage();
 
   const onInputChange = (event) => {
     const { name, value } = event.target;
@@ -70,7 +66,6 @@ const InputGoodsInfo = ({
   };
 
   //이미지 업로드 관련
-
   const handleImgSubmit = (event) => {
     setSelectedFile(event.target.files[0]);
     setIsImgUpdate(true);
@@ -110,6 +105,16 @@ const InputGoodsInfo = ({
     }
   }, [desiredUrl]);
 
+  //날짜 처리
+  const handleStartDateChange = (e) => {
+    setStartDate(e);
+    handleInputChange('startDate', e);
+  };
+  const handleEndDateChange = (e) => {
+    setEndDate(e);
+    handleInputChange('endDate', e);
+  };
+
   return (
     <Wrapper>
       <GoodsInfoWrapper>
@@ -140,13 +145,11 @@ const InputGoodsInfo = ({
         </LeftAlignBox>
 
         <LeftAlignBox>
-          <LeftTitle>판매 시작일*</LeftTitle>
-          <CommonCalender />
-        </LeftAlignBox>
-
-        <LeftAlignBox>
-          <LeftTitle>판매 종료일*</LeftTitle>
-          <CommonCalender />
+          <LeftTitle>판매 기간*</LeftTitle>
+          <Calendar
+            onStartDateChange={handleStartDateChange}
+            onEndDateChange={handleEndDateChange}
+          />
         </LeftAlignBox>
 
         <FormTitleBox>
@@ -163,15 +166,18 @@ const InputGoodsInfo = ({
 
         <FormTitleBox>
           <Title>상품 등록*</Title>
-          {itemInputBoxes.map((itemInputBox, index) => (
-            <React.Fragment key={index}>{itemInputBox}</React.Fragment>
-          ))}
-          <CommonButton
-            type={'fillGray'}
-            size={'l'}
-            children={'+'}
-            onClick={handleAddItemInputBox}
-          />
+          {/* 등록 상품 띄우기*/}
+          {itemList.length > 0 && (
+            <>
+              {itemList.map((item, index) => (
+                <ItemWrapper key={index}>
+                  {`상품명: ${item.item_name}   가격: ${item.price}   재고: ${item.goal}`}
+                </ItemWrapper>
+              ))}
+            </>
+          )}
+
+          <ItemInputBox addItem={addItem} />
         </FormTitleBox>
       </GoodsInfoWrapper>
       {isInput && (
@@ -200,6 +206,18 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3.6rem;
+`;
+
+const ItemWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3.6rem;
+
+  color: var(--main, #002472);
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: 500;
 `;
 const GoodsInfoWrapper = styled.div`
   display: flex;

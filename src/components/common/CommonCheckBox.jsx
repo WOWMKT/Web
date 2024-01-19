@@ -1,8 +1,25 @@
+import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 
-// props: width
-const CommonCheckBox = ({ width, ...props }) => {
-  return <StyledCheckBox type="checkbox" {...props} />;
+const CommonCheckBox = ({ width, onChange, ...props }) => {
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckboxChange = (event) => {
+    setIsChecked(event.target.checked);
+    if (onChange) {
+      onChange(event.target.checked);
+    }
+  };
+
+  return (
+    <StyledCheckBox
+      type="checkbox"
+      width={width}
+      checked={isChecked}
+      onChange={handleCheckboxChange}
+      {...props}
+    />
+  );
 };
 
 export default CommonCheckBox;

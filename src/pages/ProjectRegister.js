@@ -32,16 +32,13 @@ const ProjectRegister = () => {
 
     //InputGoodsInfo
     projectName: '',
-    thumbnail: 's3.image.thumbnail',
+    thumbnail: '',
     category_id: 1,
-    startDate: '2023-01-01T01:01:00',
-    endDate: '2024-02-01T01:01:00',
-    description: '프로젝트 설명',
+    startDate: '',
+    endDate: '',
+    description: '',
     image1: 's3.image.thumbnail',
-    item: [
-      { item_name: 'doll1', price: 1000, goal: 100 },
-      { item_name: 'doo1', price: 10010, goal: 10 },
-    ],
+    item: [],
 
     //InputExtraQuestions
     questions: [
