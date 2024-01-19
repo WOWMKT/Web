@@ -26,7 +26,6 @@ const InputSellerInfo = ({
   const handleSelect = (selectedOption) => {
     handleInputChange('bank', selectedOption.value);
   };
-
   const onInputChange = (event) => {
     const { name, value } = event.target;
     handleInputChange(name, value);

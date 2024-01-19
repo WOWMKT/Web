@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import CommonButton from '../common/CommonButton';
 import CommonInput from '../common/CommonInput';
 import CommonDropDown from '../common/CommonDropDown';
 import CommonCalender from '../common/CommonCalendar';
-import CommonCheckBox from '../common/CommonCheckBox';
 import CommonTextarea from '../common/CommonTextarea';
+import ItemInputBox from './ItemInputBox';
 
 const InputGoodsInfo = ({
   handleMoveNext,
@@ -19,6 +19,18 @@ const InputGoodsInfo = ({
   ];
   const handleSelect = (selectedOption) => {
     console.log('Selected Option:', selectedOption);
+  };
+
+  const [itemInputBoxes, setItemInputBoxes] = useState([
+    <ItemInputBox key={0} />,
+  ]);
+
+  const handleAddItemInputBox = () => {
+    // 현재 itemInputBoxes 상태 배열을 복제한 후 새로운 ItemInputBox를 추가합니다
+    setItemInputBoxes((prevBoxes) => [
+      ...prevBoxes,
+      <ItemInputBox key={prevBoxes.length} />,
+    ]);
   };
 
   return (
@@ -60,19 +72,15 @@ const InputGoodsInfo = ({
 
         <FormTitleBox>
           <Title>상품 등록*</Title>
-          <DetailInputBox>
-            <SubTitle>상품 이름*</SubTitle>
-            <CommonInput width="100%" type="off" />
-            <SubTitle>가격*</SubTitle>
-            <CommonInput width="40%" type="off" />
-            <SubTitle>재고*</SubTitle>
-            <CommonInput width="40%" type="off" />
-            <ConnectBox>
-              <CommonCheckBox />
-              <CheckBoxTitle>구매개수 제한</CheckBoxTitle>
-              <CommonInput width="40%" type="off" />
-            </ConnectBox>
-          </DetailInputBox>
+          {itemInputBoxes.map((itemInputBox, index) => (
+            <React.Fragment key={index}>{itemInputBox}</React.Fragment>
+          ))}
+          <CommonButton
+            type={'fillGray'}
+            size={'l'}
+            children={'+'}
+            onClick={handleAddItemInputBox}
+          />
         </FormTitleBox>
       </GoodsInfoWrapper>
       {isInput && (
@@ -176,7 +184,7 @@ const FormTitleBox = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
+  gap: 2.5rem;
 `;
 
 const Caption = styled.div`

@@ -15,7 +15,7 @@ const ProjectRegister = () => {
 
   //입력데이터 처리
   const [formData, setFormData] = useState({
-    //inputSellerInfo
+    //InputSellerInfo
     sellerName: '',
     nickname: '',
     phoneNumber: '',
@@ -24,25 +24,30 @@ const ProjectRegister = () => {
     account: '',
     accountHolderName: '',
 
-    projectName: '프로젝트이름',
-    description: '프로젝트 설명',
+    //InputGetWayInfo
+    receiveType: '',
+    receiveAddress: '',
+    deliveryType: '',
+    deliveryFee: 0,
+
+    //InputGoodsInfo
+    projectName: '',
+    thumbnail: 's3.image.thumbnail',
     category_id: 1,
+    startDate: '2023-01-01T01:01:00',
+    endDate: '2024-02-01T01:01:00',
+    description: '프로젝트 설명',
+    image1: 's3.image.thumbnail',
     item: [
       { item_name: 'doll1', price: 1000, goal: 100 },
       { item_name: 'doo1', price: 10010, goal: 10 },
     ],
+
+    //InputExtraQuestions
     questions: [
       { question: '엥?', essential: true },
       { question: '엥?', essential: false },
     ],
-    thumbnail: 's3.image.thumbnail',
-    image1: 's3.image.thumbnail',
-    startDate: '2023-01-01T01:01:00',
-    endDate: '2024-02-01T01:01:00',
-    receiveType: 'ALL',
-    receiveAddress: '홍익대학교 홍문관 4층',
-    deliveryType: '우체국 택배',
-    deliveryFee: 3000,
 
     sellToAll: true,
   });
