@@ -19,27 +19,33 @@ const InputGoodsInfo = ({
   handleInputChange,
 }) => {
   const categoryOptions = [
-    { value: '우리은행', label: '우리은행' },
-    { value: '신한은행', label: '신한은행' },
-    { value: '국민은행', label: '국민은행' },
+    { value: '1번', label: '1번' },
+    { value: '2번', label: '2번' },
+    { value: '3번', label: '3번' },
   ];
   const handleSelect = (selectedOption) => {
-    console.log('Selected Option:', selectedOption);
+    setCategoryId(
+      categoryOptions.findIndex(
+        (option) => option.value === selectedOption.value
+      ) + 1
+    );
+    handleInputChange('categoryId', categoryId);
   };
+
   const [itemInputBoxes, setItemInputBoxes] = useState([
     <ItemInputBox key={0} />,
   ]);
 
   const [projectName, setProjectName] = useState('');
-  // const [thumbnail, setThumbnail] = useState('');
+  const [thumbnail, setThumbnail] = useState('');
   const [categoryId, setCategoryId] = useState(1);
-  // const [startDate, setStartDate] = useState('');
-  // const [endDate, setEndDate] = useState(0);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [description, setDescription] = useState('');
-  // const [image1, setImage1] = useState('');
-  // const [item, setItem] = useState([]);
+  //const [image1, setImage1] = useState('');
+  const [item, setItem] = useState([]);
 
-  // const [selectedFile, setSelectedFile] = useState(null);
+  //img관련 state
   const [mode, setMode] = useState('project');
   const [isImgUpdate, setIsImgUpdate] = useState(false);
   const [presignedUrl, setPresignedUrl] = useState('');
@@ -57,6 +63,13 @@ const InputGoodsInfo = ({
       <ItemInputBox key={prevBoxes.length} />,
     ]);
   };
+
+  const onInputChange = (event) => {
+    const { name, value } = event.target;
+    handleInputChange(name, value);
+  };
+
+  //이미지 업로드 관련
 
   const handleImgSubmit = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -85,9 +98,6 @@ const InputGoodsInfo = ({
 
   useEffect(() => {
     if (isImgUpdate) {
-      // console.log('이미지 업로드');
-      // console.log(presignedUrl);
-      //fetchData.uploadImage(presignedUrl, selectedFile, selectedFile.type);
       handleImgUploader(selectedFile);
     }
   }, [isImgUpdate]);
@@ -95,6 +105,8 @@ const InputGoodsInfo = ({
   useEffect(() => {
     if (desiredUrl !== '') {
       console.log(desiredUrl);
+      setThumbnail(desiredUrl);
+      handleInputChange('thumbnail', desiredUrl);
     }
   }, [desiredUrl]);
 
@@ -103,7 +115,15 @@ const InputGoodsInfo = ({
       <GoodsInfoWrapper>
         <FormTitleBox>
           <Title>폼 제목*</Title>
-          <CommonInput width="100%" />
+          <CommonInput
+            width="100%"
+            name="sellerName"
+            value={projectName}
+            onChange={(e) => {
+              setProjectName(e.target.value);
+              onInputChange(e);
+            }}
+          />
           <Caption>0/50</Caption>
         </FormTitleBox>
 
@@ -131,7 +151,14 @@ const InputGoodsInfo = ({
 
         <FormTitleBox>
           <Title>상품 설명*</Title>
-          <CommonTextarea />
+          <CommonTextarea
+            name="description"
+            value={description}
+            onChange={(e) => {
+              setDescription(e.target.value);
+              onInputChange(e);
+            }}
+          />
         </FormTitleBox>
 
         <FormTitleBox>
