@@ -7,13 +7,64 @@ import InputGetWayInfo from '../components/register/InputGetWayInfo';
 import InputGoodsInfo from '../components/register/InputGoodsInfo';
 import InputSellerInfo from '../components/register/InputSellerInfo';
 import CommonCheckBox from '../components/common/CommonCheckBox';
+import { usePostDemandRegister } from '../apis/post/register/usePostDemandRegister';
 
 const DemandRegister = () => {
+  //입력데이터 처리
+  const [formData, setFormData] = useState({
+    //InputSellerInfo
+    sellerName: '',
+    nickname: '',
+    phoneNumber: '',
+    sellerEtc: '',
+    bank: '',
+    account: '',
+    accountHolderName: '',
+
+    //InputGetWayInfo
+    receiveType: '',
+    receiveAddress: '',
+    deliveryType: '',
+    deliveryFee: 0,
+
+    //InputGoodsInfo
+    projectName: '',
+    thumbnail: '',
+    category_id: 1,
+    startDate: '',
+    endDate: '',
+    description: '',
+    image1: 's3.image.thumbnail',
+    item: [],
+
+    //InputExtraQuestions
+    questions: [],
+
+    sellToAll: true,
+  });
+
+  // Input change handler
+  const handleInputChange = (name, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  //custom-hook
+  const fetchData = usePostDemandRegister();
+
+  const handleSubmit = () => {
+    fetchData.demandRegister(formData);
+  };
+
+  //render step
   const [step, setStep] = useState(1); //1~4
   const handleMoveNext = () => {
     if (step < 4) {
       setStep(step + 1);
     } else {
+      handleSubmit();
       alert('마지막 페이지!');
     }
   };
@@ -24,14 +75,13 @@ const DemandRegister = () => {
     }
   };
 
-  // 단계별 컴포넌트 배열
   const InputInfoList = [
     InputSellerInfo,
     InputGoodsInfo,
     InputExtraQuestionInfo,
     InputAgreementInfo,
   ];
-  // step 값에 따른 컴포넌트 렌더링 함수
+
   const renderStepBodyComponent = () => {
     const StepBody = InputInfoList[step - 1];
     return StepBody ? (
@@ -39,6 +89,7 @@ const DemandRegister = () => {
         handleMoveNext={handleMoveNext}
         handleMoveBefore={handleMoveBefore}
         isInput={true}
+        handleInputChange={handleInputChange}
       />
     ) : null;
   };
