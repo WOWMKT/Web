@@ -84,6 +84,7 @@ const DetailInputBox = styled.div`
   padding-left: 2rem;
   padding-right: 2rem;
   padding-bottom: 2rem;
+  margin-bottom: 2rem;
 `;
 
 const ConnectBox = styled.div`

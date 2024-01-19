@@ -1,16 +1,22 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import CommonButton from '../common/CommonButton';
 import CommonInput from '../common/CommonInput';
 import CommonDropDown from '../common/CommonDropDown';
 import CommonCalender from '../common/CommonCalendar';
+import CommonCheckBox from '../common/CommonCheckBox';
 import CommonTextarea from '../common/CommonTextarea';
 import ItemInputBox from './ItemInputBox';
+import { useGetImageUrl } from '../../apis/get/register/useGetImageUrl';
+import { usePutImage } from '../../apis/post/register/usePutImage';
+import axios from 'axios';
+import axiosInstance from '../../apis';
 
 const InputGoodsInfo = ({
   handleMoveNext,
   handleMoveBefore,
   isInput = false,
+  handleInputChange,
 }) => {
   const categoryOptions = [
     { value: '우리은행', label: '우리은행' },
@@ -20,10 +26,29 @@ const InputGoodsInfo = ({
   const handleSelect = (selectedOption) => {
     console.log('Selected Option:', selectedOption);
   };
-
   const [itemInputBoxes, setItemInputBoxes] = useState([
     <ItemInputBox key={0} />,
   ]);
+
+  const [projectName, setProjectName] = useState('');
+  // const [thumbnail, setThumbnail] = useState('');
+  const [categoryId, setCategoryId] = useState(1);
+  // const [startDate, setStartDate] = useState('');
+  // const [endDate, setEndDate] = useState(0);
+  const [description, setDescription] = useState('');
+  // const [image1, setImage1] = useState('');
+  // const [item, setItem] = useState([]);
+
+  // const [selectedFile, setSelectedFile] = useState(null);
+  const [mode, setMode] = useState('project');
+  const [isImgUpdate, setIsImgUpdate] = useState(false);
+  const [presignedUrl, setPresignedUrl] = useState('');
+  const [desiredUrl, setDesiredUrl] = useState('');
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  //custom-hook
+  const fetchedUrl = useGetImageUrl(mode); //대표이미지 들어갈 url
+  const fetchData = usePutImage();
 
   const handleAddItemInputBox = () => {
     // 현재 itemInputBoxes 상태 배열을 복제한 후 새로운 ItemInputBox를 추가합니다
@@ -32,6 +57,46 @@ const InputGoodsInfo = ({
       <ItemInputBox key={prevBoxes.length} />,
     ]);
   };
+
+  const handleImgSubmit = (event) => {
+    setSelectedFile(event.target.files[0]);
+    setIsImgUpdate(true);
+  };
+
+  const handleImgUploader = async (selectedFile) => {
+    //그냥 AXIOS업로드 나중에 QUERY수정
+    await axiosInstance.put(presignedUrl, selectedFile, {
+      headers: {
+        'Content-Type': selectedFile.type,
+      },
+    });
+
+    //접근 가능한 url뱉어내기
+    setDesiredUrl(presignedUrl.split('?')[0]);
+  };
+
+  useEffect(() => {
+    if (!fetchedUrl.isLoading) {
+      console.log('url세팅완료');
+      setPresignedUrl(fetchedUrl.imageUrl);
+      console.log(presignedUrl);
+    }
+  }, [fetchedUrl.isLoading]);
+
+  useEffect(() => {
+    if (isImgUpdate) {
+      // console.log('이미지 업로드');
+      // console.log(presignedUrl);
+      //fetchData.uploadImage(presignedUrl, selectedFile, selectedFile.type);
+      handleImgUploader(selectedFile);
+    }
+  }, [isImgUpdate]);
+
+  useEffect(() => {
+    if (desiredUrl !== '') {
+      console.log(desiredUrl);
+    }
+  }, [desiredUrl]);
 
   return (
     <Wrapper>
@@ -46,8 +111,7 @@ const InputGoodsInfo = ({
           <LeftTitle>
             대표이미지*<Caption>.jpg, .png, .svg파일만 가능합니다</Caption>
           </LeftTitle>
-
-          <ImgUploader type="file" />
+          <ImgUploader type="file" onChange={handleImgSubmit} />
         </LeftAlignBox>
 
         <LeftAlignBox>
@@ -184,7 +248,7 @@ const FormTitleBox = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 1.1rem;
 `;
 
 const Caption = styled.div`
