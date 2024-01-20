@@ -1,6 +1,12 @@
 // GoodsList.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import GoodsMainView from './GoodsMainView';
+import { useGetImageUrl } from '../../apis/get/register/useGetImageUrl';
+import { useGetSaleItems } from '../../apis/get/main/useGetSaleItems';
+import {
+  useGetDemandItems,
+  useGetDemandProjectList,
+} from '../../apis/get/main/useGetDemandItems';
 
 const GoodsList = ({ pageNo, orderBy, univ, isSelling }) => {
   const [goodsList, setGoodsList] = useState([
@@ -12,6 +18,22 @@ const GoodsList = ({ pageNo, orderBy, univ, isSelling }) => {
       title: '굿즈 제목',
     },
   ]);
+
+  //custom-hook
+  const fetchedSaleList = useGetSaleItems({ pageNo, orderBy, univ });
+  const fetchedDemandList = useGetDemandItems({ pageNo, orderBy, univ });
+
+  useEffect(() => {
+    if (!fetchedSaleList.isLoading && isSelling) {
+      setGoodsList(fetchedSaleList.saleProjectList.projectList);
+    }
+  }, [fetchedSaleList.isLoading]);
+  useEffect(() => {
+    if (!fetchedDemandList.isLoading && !isSelling) {
+      setGoodsList(fetchedDemandList.demandProjectList.projectList);
+    }
+  }, [fetchedDemandList.isLoading]);
+
   return (
     <div>
       {goodsList.map((good, index) => (

@@ -31,7 +31,7 @@ export const useGetSaleItems = ({ pageNo, orderBy, univ }) => {
       const res = await axiosInstance.get(
         `/sale/home?pageNo=${pageNo}&orderBy=${orderBy}&univ=${univ}`
       );
-      return res.data;
+      return res;
     },
   });
 

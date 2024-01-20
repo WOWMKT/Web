@@ -31,7 +31,7 @@ const Main = () => {
 
   //const [searchTerm, setSearchTerm] = useState('');
   const [pageNo, setPageNo] = useState(1);
-  const [univ, setUniv] = useState('myUniv'); // myUniv, allUniv
+  const [univ, setUniv] = useState('allUniv'); // myUniv, allUniv
   //const [isLast, setIsLast] = useState(false);
 
   useEffect(() => {
@@ -41,9 +41,6 @@ const Main = () => {
       setUniv('myUniv');
     }
   }, [isAllSchools]);
-
-  //custom-hook
-  const fetchedData = useGetSaleItems({ pageNo, orderBy, univ });
 
   const customDropDownStyle = {
     width: '8rem',
@@ -94,7 +91,7 @@ const Main = () => {
         />
         <UnivToggle isAllSchools={isAllSchools} onSelect={handleSchoolToggle} />
       </FilterBar>
-      <GoodsList />
+      <GoodsList pageNo={pageNo} orderBy={orderBy} univ={univ} />
     </Wrapper>
   );
 };
