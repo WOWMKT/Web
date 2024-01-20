@@ -26,7 +26,7 @@ import axiosInstance from '../..';
  */
 export const useGetSaleItems = ({ pageNo, orderBy, univ }) => {
   const { isLoading, data, error } = useQuery({
-    queryKey: ['saleProjectList'],
+    queryKey: ['saleProjectList', pageNo, orderBy, univ],
     queryFn: async () => {
       const res = await axiosInstance.get(
         `/sale/home?pageNo=${pageNo}&orderBy=${orderBy}&univ=${univ}`

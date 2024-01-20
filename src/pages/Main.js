@@ -100,7 +100,12 @@ const Main = () => {
         />
         <UnivToggle isAllSchools={isAllSchools} onSelect={handleSchoolToggle} />
       </FilterBar>
-      <GoodsList pageNo={pageNo} orderBy={orderBy} univ={univ} />
+      <GoodsList
+        pageNo={pageNo}
+        orderBy={orderBy}
+        univ={univ}
+        isSelling={isSelling}
+      />
     </Wrapper>
   );
 };

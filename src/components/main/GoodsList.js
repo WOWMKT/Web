@@ -3,10 +3,7 @@ import React, { useEffect, useState } from 'react';
 import GoodsMainView from './GoodsMainView';
 import { useGetImageUrl } from '../../apis/get/register/useGetImageUrl';
 import { useGetSaleItems } from '../../apis/get/main/useGetSaleItems';
-import {
-  useGetDemandItems,
-  useGetDemandProjectList,
-} from '../../apis/get/main/useGetDemandItems';
+import { useGetDemandItems } from '../../apis/get/main/useGetDemandItems';
 
 const GoodsList = ({ pageNo, orderBy, univ, isSelling }) => {
   const [goodsList, setGoodsList] = useState([
@@ -24,12 +21,20 @@ const GoodsList = ({ pageNo, orderBy, univ, isSelling }) => {
   const fetchedDemandList = useGetDemandItems({ pageNo, orderBy, univ });
 
   useEffect(() => {
-    if (!fetchedSaleList.isLoading && isSelling) {
+    if (
+      !fetchedSaleList.isLoading &&
+      isSelling &&
+      fetchedSaleList.saleProjectList !== null
+    ) {
       setGoodsList(fetchedSaleList.saleProjectList.projectList);
     }
   }, [fetchedSaleList.isLoading]);
   useEffect(() => {
-    if (!fetchedDemandList.isLoading && !isSelling) {
+    if (
+      !fetchedDemandList.isLoading &&
+      !isSelling &&
+      fetchedDemandList.demandProjectList !== null
+    ) {
       setGoodsList(fetchedDemandList.demandProjectList.projectList);
     }
   }, [fetchedDemandList.isLoading]);
