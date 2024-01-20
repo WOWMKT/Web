@@ -14,13 +14,10 @@ const Main = () => {
     { value: '등등', label: '등등' },
   ];
   const filterOptions = [
-    { value: '인기순', label: '인기순' },
-    { value: '마감순', label: '마감순' },
-    { value: '절박순', label: '절박순' },
+    { value: 'view', label: '인기순' },
+    { value: 'endDate', label: '마감순' },
+    { value: 'startDate', label: '최신순' },
   ];
-  const handleSelect = (selectedOption) => {
-    console.log('Selected Option:', selectedOption);
-  };
 
   //state
   const [isAllSchools, setIsAllSchools] = useState(false);
@@ -33,14 +30,6 @@ const Main = () => {
   const [pageNo, setPageNo] = useState(1);
   const [univ, setUniv] = useState('allUniv'); // myUniv, allUniv
   //const [isLast, setIsLast] = useState(false);
-
-  useEffect(() => {
-    if (isAllSchools) {
-      setUniv('allUniv');
-    } else {
-      setUniv('myUniv');
-    }
-  }, [isAllSchools]);
 
   const customDropDownStyle = {
     width: '8rem',
@@ -62,6 +51,26 @@ const Main = () => {
     setIsSelling(false);
   };
 
+  const handleSelectOrderBy = (selectedOption) => {
+    setOrderBy(selectedOption.value);
+  };
+
+  const handleSelectCategory = (selectedOption) => {
+    setCategoryId(
+      categoryOptions.findIndex(
+        (option) => option.value === selectedOption.value
+      ) + 1
+    );
+  };
+
+  useEffect(() => {
+    if (isAllSchools) {
+      setUniv('allUniv');
+    } else {
+      setUniv('myUniv');
+    }
+  }, [isAllSchools]);
+
   return (
     <Wrapper>
       <TopBar>
@@ -81,12 +90,12 @@ const Main = () => {
         <ProductNum>총 3개</ProductNum>
         <CommonDropDown
           options={categoryOptions}
-          onSelect={handleSelect}
+          onSelect={handleSelectCategory}
           style={customDropDownStyle}
         />
         <CommonDropDown
           options={filterOptions}
-          onSelect={handleSelect}
+          onSelect={handleSelectOrderBy}
           style={customDropDownStyle}
         />
         <UnivToggle isAllSchools={isAllSchools} onSelect={handleSchoolToggle} />

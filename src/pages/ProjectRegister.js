@@ -10,9 +10,6 @@ import CommonCheckBox from '../components/common/CommonCheckBox';
 import { usePostProjectRegister } from '../apis/post/register/usePostProjectRegister';
 
 const ProjectRegister = () => {
-  //추후 public으로 분리
-  const banks = ['KB국민', 'IBK기업'];
-
   //입력데이터 처리
   const [formData, setFormData] = useState({
     //InputSellerInfo
