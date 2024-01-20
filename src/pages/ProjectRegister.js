@@ -41,10 +41,7 @@ const ProjectRegister = () => {
     item: [],
 
     //InputExtraQuestions
-    questions: [
-      { question: '엥?', essential: true },
-      { question: '엥?', essential: false },
-    ],
+    questions: [],
 
     sellToAll: true,
   });
