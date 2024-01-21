@@ -6,13 +6,12 @@ import styled from 'styled-components';
 import GoodsMainView from '../components/main/GoodsMainView';
 import { useGetSaleItems } from '../apis/get/main/useGetSaleItems';
 import GoodsList from '../components/main/GoodsList';
+import categoryList from '../assets/data/categoryList.json';
+import { useNavigate } from 'react-router-dom';
 
 const Main = () => {
-  const categoryOptions = [
-    { value: '인형', label: '인형' },
-    { value: '기타', label: '기타' },
-    { value: '등등', label: '등등' },
-  ];
+  const navigate = useNavigate();
+  const categoryOptions = categoryList;
   const filterOptions = [
     { value: 'view', label: '인기순' },
     { value: 'endDate', label: '마감순' },
@@ -83,7 +82,15 @@ const Main = () => {
           </CaptionTag>
         </BarLeft>
         <BarRight>
-          <Caption>+ 등록하기</Caption>
+          <Caption
+            onClick={() => {
+              isSelling
+                ? navigate('/register/project')
+                : navigate('/register/demand');
+            }}
+          >
+            + 등록하기
+          </Caption>
         </BarRight>
       </TopBar>
       <FilterBar>
@@ -143,7 +150,7 @@ const BarRight = styled.div`
   align-items: center;
 `;
 
-const Caption = styled.div`
+const Caption = styled.button`
   color: #646464;
 
   font-size: 1.6rem;
