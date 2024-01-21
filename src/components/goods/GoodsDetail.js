@@ -8,21 +8,56 @@ import CommonModal from '../common/CommonModal';
 import { useModal } from '../common/ModalContext';
 import OrderForm from './OrderForm';
 import DemandForm from './DemandForm';
+import { useGetGoodsDetail } from '../../apis/get/goods/useGetGoodsDetail';
 
 const GoodsDetail = () => {
   const { isModalOpen, openModal, closeModal } = useModal();
   //판매vs수요조사 여부 (추후 useParams로 받기)
-  const { isOrder, setIsOrder } = useState(false);
+  const [isOrder, setIsOrder] = useState(true); //false:demand true:selling
+  const [projectId, setProjectId] = useState('9');
+  //data
+  const [goodsData, setGoodsData] = useState({});
+
+  //custom-hook
+  const fetchedData = useGetGoodsDetail({ projectId, isOrder });
+
+  useEffect(() => {
+    if (!fetchedData.isLoading && fetchedData.goodsDetail !== null) {
+      setGoodsData(fetchedData.goodsDetail);
+    }
+  }, [fetchedData.isLoading]);
+
+  //data 처리
+  const formatDateString = (dateString) => {
+    const date = new Date(dateString);
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+      2,
+      '0'
+    )}-${String(date.getDate()).padStart(2, '0')}`;
+  };
+
+  const achievedRate = (achieved, goal) => {
+    console.log(achieved, goal);
+    return achieved === 0 || goal === 0
+      ? '0.00'
+      : ((achieved / goal) * 100).toFixed(2);
+  };
+
+  const remainingDays = (startDate, endDate) => {
+    const startDateParsed = new Date(startDate);
+    const endDateParsed = new Date(endDate);
+    return Math.ceil((endDateParsed - startDateParsed) / (1000 * 60 * 60 * 24));
+  };
 
   return (
     <>
       <Wrapper>
-        <GoodsImg></GoodsImg>
+        <GoodsImg src={goodsData.thumbnail}></GoodsImg>
         <GoodsInfoBox>
           <RowBox>
             <RowBoxBar>
-              <CaptionBlack>카테고리</CaptionBlack>
-              <CaptionGray>OO대학교</CaptionGray>
+              <CaptionBlack>{goodsData.category}</CaptionBlack>
+              <CaptionGray>{goodsData.univ}</CaptionGray>
             </RowBoxBar>
             <RowBoxBar>
               <BorderHeartIcon />
@@ -30,23 +65,27 @@ const GoodsDetail = () => {
             </RowBoxBar>
           </RowBox>
           <Box>
-            <Title>프로젝트 제목</Title>
-            <CaptionGray>프로젝트 상품에 대한 간단한 설명입니다</CaptionGray>
-            <CaptionGray>2023.02.10~202.5.02.23</CaptionGray>
+            <Title>{goodsData.name}</Title>
+            <CaptionGray>{goodsData.description}</CaptionGray>
+            <CaptionGray>
+              {formatDateString(goodsData.start_date)}~
+              {formatDateString(goodsData.end_date)}
+            </CaptionGray>
             <RowBox>
-              <Blue1Title>67% 달성</Blue1Title>
-              <Blue2Title>160명 참여</Blue2Title>
-              <Blue2Title>2일 남음</Blue2Title>
+              <Blue1Title>
+                {achievedRate(goodsData.achieved, goodsData.goal)} 달성
+              </Blue1Title>
+              <Blue2Title>{goodsData.participant_number}명 참여</Blue2Title>
+              <Blue2Title>
+                {remainingDays(goodsData.start_date, goodsData.end_date)}일 남음
+              </Blue2Title>
             </RowBox>
-            <SellerName>제작 wowBear</SellerName>
+            <SellerName>제작 {goodsData.nickname}</SellerName>
           </Box>
         </GoodsInfoBox>
-        <GoodsImg></GoodsImg>
+        <GoodsImg src={goodsData.thumbnail}></GoodsImg>
         <GoodsInfoBox>
-          프로젝트 상품에 대한 내용입니다. 이러한 글은 판매자가 미리 등록하는
-          글로, 사진과 글을 임의로 순서를 정해 배치할 수 있습니다. 사진의
-          경우에는 좌우에 마진 값이 벗지만 글의 경우에는 화면의 좌우에 여백을
-          두도록 합니다.{' '}
+          {goodsData.description}
           <CommonButton
             type={'fillBlue'}
             children={'구매하기'}
@@ -73,7 +112,7 @@ const Wrapper = styled.div`
   gap: 3rem;
   padding-top: 3rem;
 `;
-const GoodsImg = styled.div`
+const GoodsImg = styled.img`
   width: 100%;
   height: 25rem;
 
@@ -97,6 +136,13 @@ const GoodsInfoBox = styled.div`
   padding-right: 3rem;
 
   gap: 2rem;
+
+  color: #646464;
+  font-size: 1.4rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: capitalize;
 `;
 const RowBox = styled.div`
   display: flex;

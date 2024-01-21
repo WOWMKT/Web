@@ -1,26 +1,76 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CommonCheckBox from '../common/CommonCheckBox';
 import CommonButton from '../common/CommonButton';
 import CommonInput from '../common/CommonInput';
 
-const InputExtraQuestionInfo = ({ handleMoveNext, handleMoveBefore }) => {
+const InputExtraQuestionInfo = ({
+  handleMoveNext,
+  handleMoveBefore,
+  handleInputChange,
+}) => {
+  const [itemList, setItemList] = useState([]);
+  const [question, setQuestion] = useState('');
+  const [isEssential, setIsEssential] = useState(false);
+
+  const onInputChange = (event) => {
+    const { name, value } = event.target;
+    handleInputChange(name, value);
+  };
+
+  const addItem = (newItem) => {
+    setItemList((prevItems) => [...prevItems, newItem]);
+  };
+  const handleAddItem = () => {
+    const newItem = {
+      question: question,
+      essential: isEssential,
+    };
+    addItem(newItem);
+    console.log(newItem);
+
+    setQuestion('');
+    setIsEssential(false);
+  };
+
+  useEffect(() => {
+    handleInputChange('questions', itemList);
+  }, [itemList]);
+
   return (
     <Wrapper>
       <FormTitleBox>
         <Title>추가 질문 등록(선택)</Title>
+        {itemList.length > 0 && (
+          <>
+            {itemList.map((item, index) => (
+              <li key={index}>{`등록 질문: ${item.question} `}</li>
+            ))}
+          </>
+        )}
         <DetailInputBox>
           <CommonInput
             width="100%"
             type="off"
+            value={question}
             placeholder="질문을 입력해주세요"
+            onChange={(e) => setQuestion(e.target.value)}
           />
           <DetailInputBoxFooter>
-            <CommonCheckBox />
+            <CommonCheckBox
+              onChange={(isChecked) => {
+                setIsEssential(isChecked);
+              }}
+            />
             <CheckBoxTitle>응답 필수</CheckBoxTitle>
           </DetailInputBoxFooter>
         </DetailInputBox>
-        <CommonButton size={'l'} type={'fillGray'} children={'+'} />
+        <CommonButton
+          size={'l'}
+          type={'fillGray'}
+          children={'+'}
+          onClick={handleAddItem}
+        />
       </FormTitleBox>
       <ButtonBox>
         <CommonButton

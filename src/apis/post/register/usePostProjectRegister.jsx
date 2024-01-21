@@ -28,7 +28,6 @@ import { useNavigate } from 'react-router-dom';
       sellToAll,
     
  * @returns
- * { project_id : Long }
  *
  */
 export const usePostProjectRegister = () => {

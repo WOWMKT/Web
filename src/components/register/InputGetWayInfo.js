@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CommonButton from '../common/CommonButton';
 import CommonInput from '../common/CommonInput';
@@ -7,24 +7,113 @@ const InputGetWayInfo = ({
   handleMoveNext,
   handleMoveBefore,
   isInput = false,
+  handleInputChange,
 }) => {
+  const [receiveType, setReceiveType] = useState('');
+  const [receiveAddress, setReceiveAddress] = useState('');
+  const [deliveryType, setDeliveryType] = useState('');
+  const [deliveryFee, setDeliveryFee] = useState(0);
+
+  const [isDelivery, setIsDelivery] = useState(false);
+  const [isPickUp, setIsPickUp] = useState(false);
+
+  const onInputChange = (event) => {
+    const { name, value } = event.target;
+    handleInputChange(name, value);
+  };
+
+  //receiveType처리
+  useEffect(() => {
+    let updatedReceiveType = '';
+    if (isDelivery && !isPickUp) {
+      updatedReceiveType = 'DELIVERY';
+    } else if (isPickUp && !isDelivery) {
+      updatedReceiveType = 'PICKUP';
+    } else if (isPickUp && isDelivery) {
+      updatedReceiveType = 'ALL';
+    }
+    setReceiveType(updatedReceiveType);
+  }, [isDelivery, isPickUp]);
+
+  useEffect(() => {
+    handleInputChange('receiveType', receiveType);
+    console.log(receiveType);
+  }, [receiveType]);
+
+  const handleToggleDelivery = () => {
+    if (isDelivery) {
+      setIsDelivery(false);
+    } else {
+      setIsDelivery(true);
+    }
+    console.log(isDelivery);
+  };
+  const handleTogglePickup = () => {
+    if (isPickUp) {
+      setIsPickUp(false);
+    } else {
+      setIsPickUp(true);
+    }
+    console.log(isPickUp);
+  };
+
   return (
     <Wrapper>
       <GetWayWrapper>
         <Title>수령 방법*</Title>
         <SelectBox>
-          <SelectBut>통신판매</SelectBut>
-          <SelectBut>현장수령</SelectBut>
+          <SelectBut onClick={handleToggleDelivery} active={isDelivery}>
+            통신판매
+          </SelectBut>
+          <SelectBut onClick={handleTogglePickup} active={isPickUp}>
+            현장수령
+          </SelectBut>
         </SelectBox>
         <DetailInputBox>
-          <SubTitle>배송 방법 이름*(or 수령장소*)</SubTitle>
-          <CommonInput width="100%" type="off" placeholder="ex. 우체국 택배" />
-          <SubTitle>배송비*</SubTitle>
-          <CommonInput width="40%" type="off" />
+          {isPickUp && (
+            <>
+              <SubTitle>수령 장소*</SubTitle>
+              <CommonInput
+                width="100%"
+                type="off"
+                placeholder="ex. 홍익대 3층"
+                name="receiveAddress"
+                value={receiveAddress}
+                onChange={(e) => {
+                  setReceiveAddress(e.target.value);
+                  onInputChange(e);
+                }}
+              />
+            </>
+          )}
+          {isDelivery && (
+            <>
+              <SubTitle>배송 방법 이름*</SubTitle>
+              <CommonInput
+                width="100%"
+                type="off"
+                placeholder="ex. 우체국 택배"
+                name="deliveryType"
+                value={deliveryType}
+                onChange={(e) => {
+                  setDeliveryType(e.target.value);
+                  onInputChange(e);
+                }}
+              />
+              <SubTitle>배송비*</SubTitle>
+              <CommonInput
+                width="40%"
+                type="off"
+                name="deliveryFee"
+                value={deliveryFee}
+                onChange={(e) => {
+                  setDeliveryFee(e.target.value);
+                  onInputChange(e);
+                }}
+              />
+            </>
+          )}
         </DetailInputBox>
-        {isInput && (
-          <CommonButton size={'l'} type={'fillGray'} children={'+'} />
-        )}
       </GetWayWrapper>
       {isInput && (
         <ButtonBox>
@@ -148,7 +237,7 @@ const SelectBox = styled.div`
 const SelectBut = styled.button`
   width: 100%;
   border-radius: 0.5rem;
-  border: 1px solid #c1c1c1;
+  border: 1px solid ${(props) => (props.active ? '#2969F3' : '#646464')};
 
   display: flex;
   justify-content: center;
@@ -156,6 +245,7 @@ const SelectBut = styled.button`
 
   padding: 1rem;
   color: #646464;
+  color: ${(props) => (props.active ? '#2969F3' : '#646464')};
 
   /* Body 3 */
   font-size: 14px;

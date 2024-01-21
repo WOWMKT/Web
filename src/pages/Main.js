@@ -4,6 +4,8 @@ import CommonDropDown from '../components/common/CommonDropDown';
 import UnivToggle from '../components/common/UnivToggle';
 import styled from 'styled-components';
 import GoodsMainView from '../components/main/GoodsMainView';
+import { useGetSaleItems } from '../apis/get/main/useGetSaleItems';
+import GoodsList from '../components/main/GoodsList';
 
 const Main = () => {
   const categoryOptions = [
@@ -12,15 +14,22 @@ const Main = () => {
     { value: '등등', label: '등등' },
   ];
   const filterOptions = [
-    { value: '인기순', label: '인기순' },
-    { value: '마감순', label: '마감순' },
-    { value: '절박순', label: '절박순' },
+    { value: 'view', label: '인기순' },
+    { value: 'endDate', label: '마감순' },
+    { value: 'startDate', label: '최신순' },
   ];
-  const handleSelect = (selectedOption) => {
-    console.log('Selected Option:', selectedOption);
-  };
 
+  //state
   const [isAllSchools, setIsAllSchools] = useState(false);
+
+  const [isSelling, setIsSelling] = useState(true); //project, demand
+  const [categoryId, setCategoryId] = useState(1); // 1~5
+  const [orderBy, setOrderBy] = useState('view'); // endDate, view, startDate
+
+  //const [searchTerm, setSearchTerm] = useState('');
+  const [pageNo, setPageNo] = useState(1);
+  const [univ, setUniv] = useState('allUniv'); // myUniv, allUniv
+  //const [isLast, setIsLast] = useState(false);
 
   const customDropDownStyle = {
     width: '8rem',
@@ -32,57 +41,46 @@ const Main = () => {
     padding: '0.2rem',
   };
 
-  const [goodsList, setGoodsList] = useState([
-    {
-      imgLink: 'urlurl',
-      seller: '제작자',
-      univ: '굿즈대학교',
-      performance: '30%',
-      title: '굿즈 제목',
-    },
-    {
-      imgLink: 'urlurl',
-      seller: '제작자',
-      univ: '굿즈대학교',
-      performance: '30%',
-      title: '굿즈 제목',
-    },
-    ,
-    {
-      imgLink: 'urlurl',
-      seller: '제작자',
-      univ: '굿즈대학교',
-      title: '굿즈 제목',
-      performance: '30%',
-    },
-    ,
-    {
-      imgLink: 'urlurl',
-      seller: '제작자',
-      univ: '굿즈대학교',
-      performance: '30%',
-      title: '굿즈 제목',
-    },
-    ,
-    {
-      imgLink: 'urlurl',
-      seller: '제작자',
-      univ: '굿즈대학교',
-      performance: '30%',
-      title: '굿즈 제목',
-    },
-  ]);
-
   const handleSchoolToggle = (isSelected) => {
     setIsAllSchools(isSelected);
   };
+  const handleSellButtonClick = () => {
+    setIsSelling(true);
+  };
+  const handleSurveyButtonClick = () => {
+    setIsSelling(false);
+  };
+
+  const handleSelectOrderBy = (selectedOption) => {
+    setOrderBy(selectedOption.value);
+  };
+
+  const handleSelectCategory = (selectedOption) => {
+    setCategoryId(
+      categoryOptions.findIndex(
+        (option) => option.value === selectedOption.value
+      ) + 1
+    );
+  };
+
+  useEffect(() => {
+    if (isAllSchools) {
+      setUniv('allUniv');
+    } else {
+      setUniv('myUniv');
+    }
+  }, [isAllSchools]);
 
   return (
     <Wrapper>
       <TopBar>
         <BarLeft>
-          <CaptionTag>판매</CaptionTag>
-          <CaptionTag>수요조사</CaptionTag>
+          <CaptionTag onClick={handleSellButtonClick} active={isSelling}>
+            판매
+          </CaptionTag>
+          <CaptionTag onClick={handleSurveyButtonClick} active={!isSelling}>
+            수요조사
+          </CaptionTag>
         </BarLeft>
         <BarRight>
           <Caption>+ 등록하기</Caption>
@@ -92,28 +90,22 @@ const Main = () => {
         <ProductNum>총 3개</ProductNum>
         <CommonDropDown
           options={categoryOptions}
-          onSelect={handleSelect}
+          onSelect={handleSelectCategory}
           style={customDropDownStyle}
         />
         <CommonDropDown
           options={filterOptions}
-          onSelect={handleSelect}
+          onSelect={handleSelectOrderBy}
           style={customDropDownStyle}
         />
         <UnivToggle isAllSchools={isAllSchools} onSelect={handleSchoolToggle} />
       </FilterBar>
-      <Body>
-        {goodsList.map((good, index) => (
-          <GoodsMainView
-            key={index}
-            imgLink={good.imgLink}
-            seller={good.seller}
-            univ={good.univ}
-            performance={good.performance}
-            title={good.title}
-          />
-        ))}
-      </Body>
+      <GoodsList
+        pageNo={pageNo}
+        orderBy={orderBy}
+        univ={univ}
+        isSelling={isSelling}
+      />
     </Wrapper>
   );
 };
@@ -161,7 +153,7 @@ const Caption = styled.div`
   text-transform: capitalize;
 `;
 
-const CaptionTag = styled.div`
+const CaptionTag = styled.button`
   color: #646464;
 
   font-size: 1.6rem;
@@ -170,7 +162,7 @@ const CaptionTag = styled.div`
   line-height: normal;
   text-transform: capitalize;
 
-  border-bottom: 2px solid #002472;
+  border-bottom: ${(props) => (props.active ? '2px solid #002472' : 'none')};
   margin-right: 1rem;
   padding-bottom: 1rem;
 `;
