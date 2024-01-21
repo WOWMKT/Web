@@ -1,10 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
 import React from 'react';
-import axiosInstance from '..';
+import axiosInstance from '../..';
 
 /**
- * EmailLogin으로 accessToken발급받기
- * @param email,password
+ * KakaoLogin
+ * @param code
  * @returns 
  * { 
     temporaryPw : boolean,
@@ -12,25 +12,33 @@ import axiosInstance from '..';
     jwtAccessToken : String,
     jwtRefreshToken : String,
     univ : String
-    }
+    }   
  */
-export const usePostIdToken = ({ email, password }) => {
+export const usePostKakaoLogin = ({ code }) => {
   const {
     mutate,
-    data = { email: email, password: password },
+    data = {},
     isPending,
     error,
     isSuccess,
   } = useMutation({
-    mutationKey: ['emailLogin'],
+    mutationKey: ['kakaoLogin'],
     mutationFn: async (data) => {
-      const res = await axiosInstance.post(`/users/login`, data);
+      const res = await axiosInstance.post(`/kakao/login?code=${code}`, data);
+
+      //응답데이터 처리
+      if (res.status === 201) {
+        alert('로그인 성공!');
+      } else {
+        alert('오류');
+      }
+
       return res.data;
     },
   });
 
   return {
-    emailLogin: mutate,
+    kakaoLogin: mutate,
     isPending,
     isSuccess,
     error,

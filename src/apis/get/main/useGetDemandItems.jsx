@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import axiosInstance from '..';
+import axiosInstance from '../..';
 
 /**
  * 수요조사 메인페이지 projectList받아오기
@@ -25,14 +25,14 @@ import axiosInstance from '..';
         ]
     }
  */
-export const useGetDemandProjectList = (pageNo, orderBy, univ) => {
+export const useGetDemandItems = ({ pageNo, orderBy, univ }) => {
   const { isLoading, data, error } = useQuery({
-    queryKey: ['demandProjectList'],
+    queryKey: ['demandProjectList', pageNo, orderBy, univ],
     queryFn: async () => {
       const res = await axiosInstance.get(
         `/demand/home?pageNo=${pageNo}&orderBy=${orderBy}&univ=${univ}`
       );
-      return res.data;
+      return res;
     },
   });
 

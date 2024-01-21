@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import KakaoIcon from '../../assets/icon/KakaoIcon';
 
 const CommonButton = ({ size, type, children, onClick, ...props }) => {
   const handleClick = () => {
@@ -9,6 +10,7 @@ const CommonButton = ({ size, type, children, onClick, ...props }) => {
   };
   return (
     <StyledButton size={size} type={type} onClick={handleClick} {...props}>
+      {type === 'kakao' && <KakaoIcon />}
       {children}
     </StyledButton>
   );
@@ -23,11 +25,11 @@ const StyledButton = styled.button`
   border-radius: 0.5rem;
   cursor: pointer;
   padding: 0 1.6rem;
+  width: 100%;
 
   ${(props) =>
     props.size === 'l' &&
     css`
-      width: 32.5rem;
       height: 4.8rem;
       font-weight: 400;
     `}
@@ -60,5 +62,20 @@ const StyledButton = styled.button`
       border: 1px solid var(--main, #002472);
       background: var(--white, #fff);
       color: var(--main, #002472);
+    `}
+
+
+    ${(props) =>
+    props.type === 'kakao' &&
+    css`
+      background: var(--kakao, #fee500);
+      color: #000;
+
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      padding-left: 3rem;
+      gap: 7rem;
     `}
 `;
