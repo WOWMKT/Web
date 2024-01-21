@@ -5,8 +5,10 @@ import WowLogo from '../../assets/WowLogo';
 import SearchIcon from '../../assets/icon/SearchIcon';
 import HeartIcon from '../../assets/icon/HeartIcon';
 import { useModal } from './ModalContext';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
+  const navigate = useNavigate();
   const { isModalOpen } = useModal();
   return (
     <HeaderWrapper isModalOpen={isModalOpen}>
@@ -15,7 +17,11 @@ const Header = () => {
           <HamburgerIcon />
         </IconBox>
 
-        <CenteredLogo>
+        <CenteredLogo
+          onClick={() => {
+            navigate('/');
+          }}
+        >
           <WowLogo />
         </CenteredLogo>
 
@@ -53,7 +59,7 @@ const IconBox = styled.div`
   gap: 1rem;
 `;
 
-const CenteredLogo = styled.div`
+const CenteredLogo = styled.button`
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
